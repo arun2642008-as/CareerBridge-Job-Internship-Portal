@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Edit Job | CareerBridge</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --text: #1e293b;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --background: #f8fafc;
+            --white: #ffffff;
+            --success: #16a34a;
+            --danger: #dc2626;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        /* =========================
+           TOPBAR
+        ========================= */
+
+        .topbar {
+            height: 72px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #4f46e5
+                );
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .brand-text h1 {
+            font-size: 19px;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+
+        .brand-text span {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 1px;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+
+            background: #dbeafe;
+            color: var(--primary);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 13px;
+            color: var(--secondary);
+        }
+
+        .profile-info span {
+            display: block;
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .page-wrapper {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 38px 24px 60px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 600;
+
+            margin-bottom: 24px;
+
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        .page-header {
+            margin-bottom: 26px;
+        }
+
+        .page-header h2 {
+            font-size: 30px;
+            line-height: 1.2;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .form-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 8px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--secondary);
+
+            margin-bottom: 20px;
+
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+
+            padding: 12px 13px;
+
+            background: #ffffff;
+            color: var(--text);
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .form-group input,
+        .form-group select {
+            height: 46px;
+        }
+
+        .form-group textarea {
+            min-height: 145px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .field-help {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        /* =========================
+           MESSAGES
+        ========================= */
+
+        .message {
+            display: none;
+
+            padding: 13px 15px;
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .message.success {
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        /* =========================
+           ACTIONS
+        ========================= */
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+
+            margin-top: 30px;
+            padding-top: 24px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            border: none;
+            border-radius: 10px;
+
+            min-height: 44px;
+            padding: 0 20px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+
+            box-shadow:
+                0 5px 15px rgba(37, 99, 235, 0.18);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spinner {
+            width: 15px;
+            height: 15px;
+
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-top-color: white;
+
+            border-radius: 50%;
+
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        .loading-state {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+
+            min-height: 300px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        .loading-spinner {
+            width: 34px;
+            height: 34px;
+
+            border: 3px solid #dbeafe;
+            border-top-color: var(--primary);
+
+            border-radius: 50%;
+
+            animation: spin 0.8s linear infinite;
+        }
+
+        .loading-state p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* =========================
+           ERROR STATE
+        ========================= */
+
+        .error-state {
+            display: none;
+
+            background: var(--white);
+            border: 1px solid #fecaca;
+            border-radius: 18px;
+
+            padding: 45px 25px;
+
+            text-align: center;
+        }
+
+        .error-state.show {
+            display: block;
+        }
+
+        .error-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .error-state h3 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .error-state p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 768px) {
+            .topbar {
+                padding: 0 20px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .page-wrapper {
+                padding: 28px 16px 45px;
+            }
+
+            .page-header h2 {
+                font-size: 26px;
+            }
+
+            .form-card {
+                padding: 22px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 17px;
+            }
+
+            .form-group.full-width {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .topbar {
+                height: 64px;
+            }
+
+            .brand-icon {
+                width: 37px;
+                height: 37px;
+                border-radius: 10px;
+            }
+
+            .brand-text h1 {
+                font-size: 17px;
+            }
+
+            .brand-text span {
+                display: none;
+            }
+
+            .topbar-right {
+                gap: 8px;
+            }
+
+            .profile-avatar {
+                width: 34px;
+                height: 34px;
+            }
+
+            .form-card {
+                padding: 18px;
+                border-radius: 14px;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         TOPBAR
+    ========================== -->
+
+    <header class="topbar">
+
+        <a
+            href="recruiter-dashboard.html"
+            class="brand"
+        >
+            <div class="brand-icon">
+                C
+            </div>
+
+            <div class="brand-text">
+                <h1>CareerBridge</h1>
+                <span>Connect. Apply. Grow.</span>
+            </div>
+        </a>
+
+        <div class="topbar-right">
+
+            <div class="profile">
+                <div
+                    class="profile-avatar"
+                    id="profileAvatar"
+                >
+                    R
+                </div>
+
+                <div class="profile-info">
+                    <strong id="profileName">
+                        Recruiter
+                    </strong>
+
+                    <span>
+                        Recruiter Account
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="page-wrapper">
+
+        <a
+            href="my-jobs.html"
+            class="back-link"
+        >
+            ← Back to My Jobs
+        </a>
+
+
+        <div class="page-header">
+            <h2>Edit Job</h2>
+
+            <p>
+                Update the job details and keep your opportunity
+                information accurate for candidates.
+            </p>
+        </div>
+
+
+        <!-- Loading -->
+
+        <div
+            class="loading-state"
+            id="loadingState"
+        >
+            <div class="loading-spinner"></div>
+
+            <p>
+                Loading job details...
+            </p>
+        </div>
+
+
+        <!-- Error -->
+
+        <div
+            class="error-state"
+            id="errorState"
+        >
+            <div class="error-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                Unable to load this job
+            </h3>
+
+            <p id="errorText">
+                The requested job could not be found.
+            </p>
+
+            <a
+                href="my-jobs.html"
+                class="btn btn-secondary"
+            >
+                Back to My Jobs
+            </a>
+        </div>
+
+
+        <!-- Form -->
+
+        <section
+            class="form-card"
+            id="formContainer"
+            style="display: none;"
+        >
+
+            <div
+                class="message"
+                id="messageBox"
+            ></div>
+
+
+            <div class="section-title">
+                Job Information
+            </div>
+
+
+            <form id="editJobForm">
+
+                <div class="form-grid">
+
+                    <!-- Job Title -->
+
+                    <div class="form-group">
+                        <label for="title">
+                            Job Title
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="e.g. Junior Data Analyst"
+                            required
+                        >
+                    </div>
+
+
+                    <!-- Company -->
+
+                    <div class="form-group">
+                        <label for="company">
+                            Company
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="company"
+                            name="company"
+                            placeholder="e.g. CareerBridge Technologies"
+                            required
+                        >
+                    </div>
+
+
+                    <!-- Description -->
+
+                    <div class="form-group full-width">
+                        <label for="description">
+                            Job Description
+                            <span class="required">*</span>
+                        </label>
+
+                        <textarea
+                            id="description"
+                            name="description"
+                            placeholder="Describe the role, responsibilities and expectations..."
+                            required
+                        ></textarea>
+
+                        <span class="field-help">
+                            Give candidates a clear understanding
+                            of the role and responsibilities.
+                        </span>
+                    </div>
+
+
+                    <!-- Skills -->
+
+                    <div class="form-group full-width">
+                        <label for="skills">
+                            Required Skills
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="skills"
+                            name="skills"
+                            placeholder="SQL, Excel, Power BI, Python"
+                            required
+                        >
+
+                        <span class="field-help">
+                            Separate multiple skills with commas.
+                        </span>
+                    </div>
+
+
+                    <!-- Location -->
+
+                    <div class="form-group">
+                        <label for="location">
+                            Location
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="location"
+                            name="location"
+                            placeholder="e.g. Coimbatore"
+                            required
+                        >
+                    </div>
+
+
+                    <!-- Job Type -->
+
+                    <div class="form-group">
+                        <label for="job_type">
+                            Job Type
+                            <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="job_type"
+                            name="job_type"
+                            required
+                        >
+                            <option value="">
+                                Select job type
+                            </option>
+
+                            <option value="Full Time">
+                                Full Time
+                            </option>
+
+                            <option value="Part Time">
+                                Part Time
+                            </option>
+
+                            <option value="Internship">
+                                Internship
+                            </option>
+
+                            <option value="Remote">
+                                Remote
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <!-- Salary -->
+
+                    <div class="form-group">
+                        <label for="salary">
+                            Salary
+                        </label>
+
+                        <input
+                            type="text"
+                            id="salary"
+                            name="salary"
+                            placeholder="e.g. ₹10,000 - ₹15,000/month"
+                        >
+                    </div>
+
+
+                    <!-- Experience -->
+
+                    <div class="form-group">
+                        <label for="experience">
+                            Experience
+                        </label>
+
+                        <input
+                            type="text"
+                            id="experience"
+                            name="experience"
+                            placeholder="e.g. 0-1 years"
+                        >
+                    </div>
+
+
+                    <!-- Deadline -->
+
+                    <div class="form-group">
+                        <label for="deadline">
+                            Application Deadline
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="date"
+                            id="deadline"
+                            name="deadline"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <!-- Actions -->
+
+                <div class="form-actions">
+
+                    <a
+                        href="my-jobs.html"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="updateButton"
+                    >
+                        Update Job
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        let currentJobId = null;
+
+
+        /* =========================
+           API REQUEST
+        ========================== */
+
+        async function apiRequest(
+            url,
+            options = {}
+        ) {
+
+            const response = await fetch(
+                url,
+                {
+                    credentials: "include",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json",
+
+                        ...(options.headers || {})
+                    },
+
+                    ...options
+                }
+            );
+
+
+            let data;
+
+            try {
+
+                data = await response.json();
+
+            } catch {
+
+                data = {
+                    success: false,
+                    message:
+                        "Invalid server response"
+                };
+
+            }
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Something went wrong"
+                );
+
+            }
+
+
+            return data;
+
+        }
+
+
+        /* =========================
+           ELEMENTS
+        ========================== */
+
+        const loadingState =
+            document.getElementById(
+                "loadingState"
+            );
+
+        const errorState =
+            document.getElementById(
+                "errorState"
+            );
+
+        const errorText =
+            document.getElementById(
+                "errorText"
+            );
+
+        const formContainer =
+            document.getElementById(
+                "formContainer"
+            );
+
+        const editJobForm =
+            document.getElementById(
+                "editJobForm"
+            );
+
+        const messageBox =
+            document.getElementById(
+                "messageBox"
+            );
+
+        const updateButton =
+            document.getElementById(
+                "updateButton"
+            );
+
+
+        /* =========================
+           SHOW MESSAGE
+        ========================== */
+
+        function showMessage(
+            message,
+            type = "error"
+        ) {
+
+            messageBox.textContent =
+                message;
+
+            messageBox.className =
+                `message ${type} show`;
+
+        }
+
+
+        /* =========================
+           GET JOB ID
+        ========================== */
+
+        function getJobId() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+            return params.get("id");
+
+        }
+
+
+        /* =========================
+           SET PROFILE
+        ========================== */
+
+        function setProfile(user) {
+
+            const name =
+                user.name ||
+                "Recruiter";
+
+            document.getElementById(
+                "profileName"
+            ).textContent = name;
+
+
+            const avatar =
+                document.getElementById(
+                    "profileAvatar"
+                );
+
+            avatar.textContent =
+                name
+                    .trim()
+                    .charAt(0)
+                    .toUpperCase();
+
+        }
+
+
+        /* =========================
+           CHECK RECRUITER
+        ========================== */
+
+        async function checkRecruiter() {
+
+            try {
+
+                const response =
+                    await apiRequest(
+                        "/api/auth/me",
+                        {
+                            method: "GET"
+                        }
+                    );
+
+
+                if (
+                    !response.success ||
+                    !response.user ||
+                    response.user.role !==
+                        "recruiter"
+                ) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return null;
+
+                }
+
+
+                setProfile(
+                    response.user
+                );
+
+                return response.user;
+
+            } catch {
+
+                window.location.href =
+                    "login.html";
+
+                return null;
+
+            }
+
+        }
+
+
+        /* =========================
+           LOAD JOB
+        ========================== */
+
+        async function loadJob() {
+
+            currentJobId =
+                getJobId();
+
+
+            if (!currentJobId) {
+
+                loadingState.style.display =
+                    "none";
+
+                errorState.classList.add(
+                    "show"
+                );
+
+                errorText.textContent =
+                    "No job ID was provided.";
+
+                return;
+
+            }
+
+
+            try {
+
+                const data =
+                    await apiRequest(
+                        `/api/jobs/${encodeURIComponent(
+                            currentJobId
+                        )}`,
+                        {
+                            method: "GET"
+                        }
+                    );
+
+
+                const job =
+                    data.job;
+
+
+                if (!job) {
+
+                    throw new Error(
+                        "Job details were not found."
+                    );
+
+                }
+
+
+                /* Fill form */
+
+                document.getElementById(
+                    "title"
+                ).value =
+                    job.title || "";
+
+
+                document.getElementById(
+                    "company"
+                ).value =
+                    job.company || "";
+
+
+                document.getElementById(
+                    "description"
+                ).value =
+                    job.description || "";
+
+
+                document.getElementById(
+                    "skills"
+                ).value =
+                    job.skills || "";
+
+
+                document.getElementById(
+                    "location"
+                ).value =
+                    job.location || "";
+
+
+                document.getElementById(
+                    "job_type"
+                ).value =
+                    job.job_type || "";
+
+
+                document.getElementById(
+                    "salary"
+                ).value =
+                    job.salary || "";
+
+
+                document.getElementById(
+                    "experience"
+                ).value =
+                    job.experience || "";
+
+
+                document.getElementById(
+                    "deadline"
+                ).value =
+                    job.deadline || "";
+
+
+                loadingState.style.display =
+                    "none";
+
+                formContainer.style.display =
+                    "block";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load job:",
+                    error
+                );
+
+
+                loadingState.style.display =
+                    "none";
+
+                errorState.classList.add(
+                    "show"
+                );
+
+                errorText.textContent =
+                    error.message ||
+                    "Unable to load job details.";
+
+            }
+
+        }
+
+
+        /* =========================
+           UPDATE JOB
+        ========================== */
+
+        editJobForm.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+
+                if (!currentJobId) {
+
+                    showMessage(
+                        "Invalid job selected.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                const jobData = {
+
+                    title:
+                        document.getElementById(
+                            "title"
+                        ).value.trim(),
+
+                    company:
+                        document.getElementById(
+                            "company"
+                        ).value.trim(),
+
+                    description:
+                        document.getElementById(
+                            "description"
+                        ).value.trim(),
+
+                    skills:
+                        document.getElementById(
+                            "skills"
+                        ).value.trim(),
+
+                    location:
+                        document.getElementById(
+                            "location"
+                        ).value.trim(),
+
+                    job_type:
+                        document.getElementById(
+                            "job_type"
+                        ).value,
+
+                    salary:
+                        document.getElementById(
+                            "salary"
+                        ).value.trim(),
+
+                    experience:
+                        document.getElementById(
+                            "experience"
+                        ).value.trim(),
+
+                    deadline:
+                        document.getElementById(
+                            "deadline"
+                        ).value
+
+                };
+
+
+                /* Basic validation */
+
+                if (
+                    !jobData.title ||
+                    !jobData.company ||
+                    !jobData.description ||
+                    !jobData.skills ||
+                    !jobData.location ||
+                    !jobData.job_type ||
+                    !jobData.deadline
+                ) {
+
+                    showMessage(
+                        "Please fill in all required fields.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                updateButton.disabled =
+                    true;
+
+                updateButton.innerHTML =
+                    `
+                        <span class="spinner"></span>
+                        Updating...
+                    `;
+
+
+                messageBox.className =
+                    "message";
+
+
+                try {
+
+                    await apiRequest(
+                        `/api/jobs/${encodeURIComponent(
+                            currentJobId
+                        )}`,
+                        {
+                            method: "PUT",
+
+                            body:
+                                JSON.stringify(
+                                    jobData
+                                )
+                        }
+                    );
+
+
+                    showMessage(
+                        "Job updated successfully! Redirecting...",
+                        "success"
+                    );
+
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                "my-jobs.html";
+
+                        },
+                        1200
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Update failed:",
+                        error
+                    );
+
+
+                    showMessage(
+                        error.message ||
+                        "Unable to update the job.",
+                        "error"
+                    );
+
+
+                    updateButton.disabled =
+                        false;
+
+                    updateButton.textContent =
+                        "Update Job";
+
+                }
+
+            }
+        );
+
+
+        /* =========================
+           INITIALIZE
+        ========================== */
+
+        async function initializePage() {
+
+            const user =
+                await checkRecruiter();
+
+
+            if (!user) {
+                return;
+            }
+
+
+            await loadJob();
+
+        }
+
+
+        initializePage();
+
+    </script>
+
+</body>
+</html>

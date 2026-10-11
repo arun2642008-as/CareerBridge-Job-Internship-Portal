@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | CareerBridge</title>
+
+    <meta
+        name="description"
+        content="Login to your CareerBridge account."
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* ================================
+           Authentication Page
+           ================================ */
+
+        .auth-page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--light);
+        }
+
+        .auth-visual {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+            color: var(--white);
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(255, 255, 255, 0.12),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #1d4ed8,
+                    #6d28d9
+                );
+        }
+
+        .auth-visual-content {
+            max-width: 520px;
+        }
+
+        .auth-visual .brand {
+            margin-bottom: 55px;
+        }
+
+        .auth-visual .brand-icon {
+            background: rgba(255, 255, 255, 0.16);
+            box-shadow: none;
+        }
+
+        .auth-visual .brand-text strong,
+        .auth-visual .brand-text small {
+            color: var(--white);
+        }
+
+        .auth-visual h1 {
+            font-size: clamp(38px, 4vw, 56px);
+            line-height: 1.08;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .auth-visual > .auth-visual-content > p {
+            color: #dbeafe;
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 470px;
+            margin-bottom: 35px;
+        }
+
+        .auth-benefits {
+            display: grid;
+            gap: 15px;
+        }
+
+        .auth-benefit {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #eff6ff;
+            font-size: 14px;
+        }
+
+        .auth-benefit-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.13);
+        }
+
+        .auth-form-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: var(--white);
+        }
+
+        .auth-card {
+            width: min(430px, 100%);
+        }
+
+        .mobile-brand {
+            display: none;
+            margin-bottom: 35px;
+        }
+
+        .auth-heading {
+            margin-bottom: 30px;
+        }
+
+        .auth-heading .section-label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .auth-heading h2 {
+            color: var(--dark);
+            font-size: 34px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .auth-heading p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .auth-form {
+            display: grid;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 7px;
+        }
+
+        .form-group label {
+            color: var(--dark);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            color: var(--dark);
+            background: var(--white);
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+        }
+
+        .input-wrapper input::placeholder {
+            color: #94a3b8;
+        }
+
+        .password-wrapper input {
+            padding-right: 75px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        .auth-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: -2px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--muted);
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .remember-me input {
+            accent-color: var(--primary);
+        }
+
+        .forgot-link {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        .auth-submit {
+            width: 100%;
+            border: none;
+            margin-top: 5px;
+        }
+
+        .auth-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .auth-message {
+            display: none;
+            padding: 11px 13px;
+            border-radius: 9px;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .auth-message.error {
+            display: block;
+            color: #b91c1c;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .auth-message.success {
+            display: block;
+            color: #166534;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .auth-register {
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .auth-register a {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .auth-register a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 30px;
+        }
+
+        .back-home:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 850px) {
+            .auth-page {
+                grid-template-columns: 1fr;
+            }
+
+            .auth-visual {
+                display: none;
+            }
+
+            .auth-form-section {
+                min-height: 100vh;
+                padding: 30px 20px;
+            }
+
+            .mobile-brand {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-form-section {
+                padding: 25px 18px;
+            }
+
+            .auth-heading h2 {
+                font-size: 29px;
+            }
+
+            .auth-options {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="auth-page">
+
+        <!-- Left Visual Section -->
+        <section class="auth-visual">
+
+            <div class="auth-visual-content">
+
+                <a href="index.html" class="brand">
+
+                    <span class="brand-icon">
+                        C
+                    </span>
+
+                    <span class="brand-text">
+                        <strong>CareerBridge</strong>
+                        <small>Connect. Apply. Grow.</small>
+                    </span>
+
+                </a>
+
+                <h1>
+                    Welcome Back to Your Career Journey.
+                </h1>
+
+                <p>
+                    Sign in to discover opportunities, manage your
+                    applications, or connect with talented candidates.
+                </p>
+
+                <div class="auth-benefits">
+
+                    <div class="auth-benefit">
+                        <span class="auth-benefit-icon">✓</span>
+                        <span>Discover jobs and internships</span>
+                    </div>
+
+                    <div class="auth-benefit">
+                        <span class="auth-benefit-icon">✓</span>
+                        <span>Track your applications</span>
+                    </div>
+
+                    <div class="auth-benefit">
+                        <span class="auth-benefit-icon">✓</span>
+                        <span>Connect with opportunities</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Login Form -->
+        <section class="auth-form-section">
+
+            <div class="auth-card">
+
+                <a href="index.html" class="mobile-brand brand">
+
+                    <span class="brand-icon">
+                        C
+                    </span>
+
+                    <span class="brand-text">
+                        <strong>CareerBridge</strong>
+                        <small>Connect. Apply. Grow.</small>
+                    </span>
+
+                </a>
+
+
+                <a href="index.html" class="back-home">
+                    ← Back to Home
+                </a>
+
+
+                <div class="auth-heading">
+
+                    <span class="section-label">
+                        WELCOME BACK
+                    </span>
+
+                    <h2>
+                        Sign in to CareerBridge
+                    </h2>
+
+                    <p>
+                        Enter your credentials to continue.
+                    </p>
+
+                </div>
+
+
+                <form id="loginForm" class="auth-form">
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper password-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                            >
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-options">
+
+                        <label class="remember-me">
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                            >
+
+                            <span>
+                                Remember me
+                            </span>
+                        </label>
+
+                        <a href="#" class="forgot-link">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <div
+                        id="authMessage"
+                        class="auth-message"
+                        role="alert"
+                    ></div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary btn-large auth-submit"
+                        id="loginButton"
+                    >
+                        Sign In
+                    </button>
+
+                </form>
+
+
+                <div class="auth-divider">
+                    OR
+                </div>
+
+
+                <p class="auth-register">
+
+                    Don't have an account?
+
+                    <a href="register.html">
+                        Create one
+                    </a>
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const passwordInput = document.getElementById("password");
+        const passwordToggle = document.getElementById("passwordToggle");
+        const loginButton = document.getElementById("loginButton");
+        const authMessage = document.getElementById("authMessage");
+
+
+        // ========================================
+        // Password Visibility
+        // ========================================
+
+        passwordToggle.addEventListener("click", () => {
+
+            const isPassword =
+                passwordInput.type === "password";
+
+            passwordInput.type =
+                isPassword ? "text" : "password";
+
+            passwordToggle.textContent =
+                isPassword ? "Hide" : "Show";
+        });
+
+
+        // ========================================
+        // Message Helper
+        // ========================================
+
+        function showMessage(message, type) {
+
+            authMessage.textContent = message;
+
+            authMessage.className =
+                `auth-message ${type}`;
+        }
+
+
+        // ========================================
+        // Login
+        // ========================================
+
+        loginForm.addEventListener("submit", async (event) => {
+
+            event.preventDefault();
+
+            showMessage("", "");
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+
+            if (!email || !password) {
+
+                showMessage(
+                    "Please enter your email and password.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            loginButton.disabled = true;
+            loginButton.textContent = "Signing In...";
+
+
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:5000/api/auth/login",
+                    {
+                        method: "POST",
+                        credentials: "include",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            email,
+                            password
+                        })
+                    }
+                );
+
+
+                const data = await response.json();
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.message ||
+                        "Login failed."
+                    );
+                }
+
+
+                showMessage(
+                    "Login successful! Redirecting...",
+                    "success"
+                );
+
+
+                /*
+                 * Redirect based on the authenticated role.
+                 * Dashboard pages will be created next.
+                 */
+
+                if (data.user.role === "student") {
+
+                    window.location.href =
+                        "student-dashboard.html";
+
+                } else if (data.user.role === "recruiter") {
+
+                    window.location.href =
+                        "recruiter-dashboard.html";
+
+                } else {
+
+                    window.location.href =
+                        "index.html";
+                }
+
+
+            } catch (error) {
+
+                showMessage(
+                    error.message ||
+                    "Unable to connect to the server.",
+                    "error"
+                );
+
+                loginButton.disabled = false;
+                loginButton.textContent = "Sign In";
+            }
+
+        });
+    </script>
+
+</body>
+</html>

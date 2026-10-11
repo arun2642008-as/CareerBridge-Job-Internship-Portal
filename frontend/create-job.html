@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Post a Job | CareerBridge</title>
+
+    <meta
+        name="description"
+        content="Create and publish a new job opportunity on CareerBridge."
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        body {
+            background: #f8fafc;
+        }
+
+        .job-page {
+            min-height: 100vh;
+        }
+
+        .job-header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: #ffffff;
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+        }
+
+        .back-btn {
+            color: #475569;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .back-btn:hover {
+            color: #2563eb;
+        }
+
+        .job-content {
+            width: min(900px, calc(100% - 40px));
+            margin: 35px auto 60px;
+        }
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            color: #0f172a;
+            font-size: 28px;
+            letter-spacing: -0.7px;
+            margin-bottom: 7px;
+        }
+
+        .page-heading p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .job-card {
+            padding: 30px;
+            border: 1px solid #e2e8f0;
+            border-radius: 15px;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(
+                15,
+                23,
+                42,
+                0.05
+            );
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            color: #0f172a;
+            font-size: 15px;
+            font-weight: 750;
+            margin-bottom: 16px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            color: #334155;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .required {
+            color: #dc2626;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            outline: none;
+            color: #0f172a;
+            background: #ffffff;
+            font-family: inherit;
+            font-size: 12px;
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            min-height: 130px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(
+                37,
+                99,
+                235,
+                0.1
+            );
+        }
+
+        .form-hint {
+            color: #94a3b8;
+            font-size: 9px;
+            margin-top: 5px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .cancel-btn {
+            padding: 11px 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            color: #475569;
+            background: #ffffff;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .cancel-btn:hover {
+            background: #f8fafc;
+        }
+
+        .submit-btn {
+            padding: 11px 20px;
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.93;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            padding: 11px 13px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .message.error {
+            display: block;
+            color: #b91c1c;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .message.success {
+            display: block;
+            color: #166534;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        @media (max-width: 650px) {
+            .job-header {
+                padding: 0 20px;
+            }
+
+            .job-content {
+                width: calc(100% - 24px);
+                margin-top: 25px;
+            }
+
+            .job-card {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .cancel-btn,
+            .submit-btn {
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="job-page">
+
+        <header class="job-header">
+
+            <a href="recruiter-dashboard.html" class="brand">
+                <span class="brand-icon">C</span>
+                <span>CareerBridge</span>
+            </a>
+
+            <a
+                href="recruiter-dashboard.html"
+                class="back-btn"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </header>
+
+
+        <main class="job-content">
+
+            <div class="page-heading">
+
+                <h1>Post a New Job</h1>
+
+                <p>
+                    Create a new opportunity and connect with
+                    talented candidates.
+                </p>
+
+            </div>
+
+
+            <div class="job-card">
+
+                <div id="message" class="message"></div>
+
+
+                <form id="jobForm">
+
+                    <!-- Basic Information -->
+
+                    <section class="form-section">
+
+                        <h2 class="section-title">
+                            Basic Information
+                        </h2>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="title">
+                                    Job Title
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    placeholder="e.g. Junior Data Analyst"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="company">
+                                    Company
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="company"
+                                    name="company"
+                                    placeholder="e.g. CareerBridge Technologies"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label for="description">
+                                    Job Description
+                                    <span class="required">*</span>
+                                </label>
+
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    placeholder="Describe the role, responsibilities and requirements..."
+                                    required
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="form-group full">
+
+                                <label for="skills">
+                                    Required Skills
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="skills"
+                                    name="skills"
+                                    placeholder="e.g. SQL, Excel, Power BI, Python"
+                                    required
+                                >
+
+                                <span class="form-hint">
+                                    Separate multiple skills using commas.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- Job Details -->
+
+                    <section class="form-section">
+
+                        <h2 class="section-title">
+                            Job Details
+                        </h2>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="location">
+                                    Location
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="location"
+                                    name="location"
+                                    placeholder="e.g. Coimbatore"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="job_type">
+                                    Job Type
+                                    <span class="required">*</span>
+                                </label>
+
+                                <select
+                                    id="job_type"
+                                    name="job_type"
+                                    required
+                                >
+
+                                    <option value="">
+                                        Select job type
+                                    </option>
+
+                                    <option value="Full Time">
+                                        Full Time
+                                    </option>
+
+                                    <option value="Part Time">
+                                        Part Time
+                                    </option>
+
+                                    <option value="Internship">
+                                        Internship
+                                    </option>
+
+                                    <option value="Remote">
+                                        Remote
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="salary">
+                                    Salary
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="salary"
+                                    name="salary"
+                                    placeholder="e.g. ₹10,000 - ₹15,000/month"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="experience">
+                                    Experience
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="experience"
+                                    name="experience"
+                                    placeholder="e.g. 0-1 years"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="deadline">
+                                    Application Deadline
+                                    <span class="required">*</span>
+                                </label>
+
+                                <input
+                                    type="date"
+                                    id="deadline"
+                                    name="deadline"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- Actions -->
+
+                    <div class="form-actions">
+
+                        <a
+                            href="recruiter-dashboard.html"
+                            class="cancel-btn"
+                        >
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="submit-btn"
+                            id="submitButton"
+                        >
+                            Post Job
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+        const jobForm =
+            document.getElementById("jobForm");
+
+        const message =
+            document.getElementById("message");
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+
+        function showMessage(text, type) {
+
+            message.textContent = text;
+
+            message.className =
+                "message " + type;
+
+        }
+
+
+        async function checkRecruiterSession() {
+
+            try {
+
+                const response = await fetch(
+                    "/api/auth/me",
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+                const data =
+                    await response.json();
+
+                if (
+                    !response.ok ||
+                    !data.success ||
+                    !data.user ||
+                    data.user.role !== "recruiter"
+                ) {
+
+                    window.location.href =
+                        "login.html";
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Session check error:",
+                    error
+                );
+
+                window.location.href =
+                    "login.html";
+            }
+        }
+
+
+        jobForm.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+                message.className = "message";
+                message.textContent = "";
+
+                submitButton.disabled = true;
+                submitButton.textContent =
+                    "Posting Job...";
+
+
+                const jobData = {
+
+                    title:
+                        document.getElementById(
+                            "title"
+                        ).value.trim(),
+
+                    company:
+                        document.getElementById(
+                            "company"
+                        ).value.trim(),
+
+                    description:
+                        document.getElementById(
+                            "description"
+                        ).value.trim(),
+
+                    skills:
+                        document.getElementById(
+                            "skills"
+                        ).value.trim(),
+
+                    location:
+                        document.getElementById(
+                            "location"
+                        ).value.trim(),
+
+                    job_type:
+                        document.getElementById(
+                            "job_type"
+                        ).value,
+
+                    salary:
+                        document.getElementById(
+                            "salary"
+                        ).value.trim(),
+
+                    experience:
+                        document.getElementById(
+                            "experience"
+                        ).value.trim(),
+
+                    deadline:
+                        document.getElementById(
+                            "deadline"
+                        ).value
+
+                };
+
+
+                try {
+
+                    const response = await fetch(
+                        "/api/jobs",
+                        {
+                            method: "POST",
+
+                            credentials: "include",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(jobData)
+                        }
+                    );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.message ||
+                            "Unable to create job."
+                        );
+
+                    }
+
+
+                    showMessage(
+                        "Job posted successfully!",
+                        "success"
+                    );
+
+
+                    jobForm.reset();
+
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "recruiter-dashboard.html";
+
+                    }, 1200);
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Create job error:",
+                        error
+                    );
+
+                    showMessage(
+                        error.message ||
+                        "Something went wrong. Please try again.",
+                        "error"
+                    );
+
+                } finally {
+
+                    submitButton.disabled = false;
+
+                    submitButton.textContent =
+                        "Post Job";
+
+                }
+
+            }
+        );
+
+
+        checkRecruiterSession();
+
+    </script>
+
+</body>
+
+</html>

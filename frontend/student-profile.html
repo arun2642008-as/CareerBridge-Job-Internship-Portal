@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile | CareerBridge</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --background: #f5f7fb;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ========================================
+           TOPBAR
+        ======================================== */
+
+        .topbar {
+            height: 72px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 40px;
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--secondary);
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #4f46e5
+            );
+
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .brand-name {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .brand-tagline {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .back-button {
+            border: 1px solid var(--border);
+            background: #ffffff;
+            color: var(--secondary);
+
+            padding: 10px 16px;
+            border-radius: 10px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            text-decoration: none;
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .back-button:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .user-mini {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding-left: 14px;
+            border-left: 1px solid var(--border);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+
+            background: #dbeafe;
+            color: var(--primary);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .user-mini-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-mini-name {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .user-mini-role {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ========================================
+           MAIN
+        ======================================== */
+
+        .page-container {
+            width: min(1180px, calc(100% - 40px));
+            margin: 35px auto 60px;
+        }
+
+        .page-heading {
+            margin-bottom: 25px;
+        }
+
+        .page-heading h1 {
+            font-size: 30px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .page-heading p {
+            color: var(--muted);
+            margin-top: 7px;
+            font-size: 14px;
+        }
+
+        /* ========================================
+           PROFILE HEADER
+        ======================================== */
+
+        .profile-header {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a 0%,
+                    #172554 55%,
+                    #1d4ed8 100%
+                );
+
+            border-radius: 20px;
+            padding: 32px;
+
+            color: #ffffff;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .profile-identity {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .large-avatar {
+            width: 82px;
+            height: 82px;
+            border-radius: 22px;
+
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .profile-name {
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .profile-email {
+            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 14px;
+        }
+
+        .profile-role {
+            display: inline-block;
+
+            margin-top: 12px;
+            padding: 6px 11px;
+
+            border-radius: 999px;
+
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        /* ========================================
+           COMPLETION
+        ======================================== */
+
+        .completion-box {
+            min-width: 280px;
+        }
+
+        .completion-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+        }
+
+        .completion-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .completion-value {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 9px;
+
+            background: rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+
+            background: #ffffff;
+            border-radius: inherit;
+
+            transition: width 0.5s ease;
+        }
+
+        .completion-note {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 11px;
+            margin-top: 9px;
+        }
+
+        /* ========================================
+           CONTENT GRID
+        ======================================== */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 320px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            padding: 23px 25px 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .card-header p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* ========================================
+           FORM
+        ======================================== */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+
+            border: 1px solid var(--border);
+            border-radius: 11px;
+
+            padding: 12px 13px;
+
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--text);
+
+            background: #ffffff;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .form-group input {
+            height: 45px;
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-help {
+            color: #94a3b8;
+            font-size: 11px;
+            margin-top: 6px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+
+            margin-top: 25px;
+            padding-top: 20px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .button {
+            border: none;
+            border-radius: 10px;
+
+            padding: 12px 20px;
+
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .button-primary {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .button-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .button-secondary {
+            background: #f8fafc;
+            color: #334155;
+            border: 1px solid var(--border);
+        }
+
+        .button-secondary:hover {
+            background: #f1f5f9;
+        }
+
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ========================================
+           SIDE CARDS
+        ======================================== */
+
+        .side-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+
+            padding: 23px;
+            margin-bottom: 20px;
+        }
+
+        .side-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .side-card h3 {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-icon {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 9px;
+
+            background: #eff6ff;
+            color: var(--primary);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            flex-shrink: 0;
+        }
+
+        .info-content {
+            min-width: 0;
+        }
+
+        .info-label {
+            color: #94a3b8;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        .info-value {
+            color: #334155;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 3px;
+            word-break: break-word;
+        }
+
+        /* ========================================
+           PROFILE TIPS
+        ======================================== */
+
+        .tips-list {
+            list-style: none;
+        }
+
+        .tips-list li {
+            display: flex;
+            gap: 9px;
+
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+
+            margin-bottom: 12px;
+        }
+
+        .tips-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .tip-check {
+            color: var(--success);
+            font-weight: 800;
+        }
+
+        /* ========================================
+           ALERT
+        ======================================== */
+
+        .alert {
+            display: none;
+
+            padding: 12px 15px;
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert.success {
+            color: #166534;
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert.error {
+            color: #991b1b;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+        }
+
+        /* ========================================
+           LOADING
+        ======================================== */
+
+        .loading-screen {
+            min-height: 70vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-box {
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .spinner {
+            width: 38px;
+            height: 38px;
+
+            border: 4px solid #dbeafe;
+            border-top-color: var(--primary);
+
+            border-radius: 50%;
+
+            animation: spin 0.8s linear infinite;
+
+            margin: 0 auto 14px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ========================================
+           RESPONSIVE
+        ======================================== */
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .completion-box {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .topbar {
+                height: auto;
+                min-height: 70px;
+                padding: 14px 20px;
+            }
+
+            .brand-tagline {
+                display: none;
+            }
+
+            .user-mini-info {
+                display: none;
+            }
+
+            .back-button {
+                padding: 9px 11px;
+                font-size: 12px;
+            }
+
+            .user-mini {
+                padding-left: 10px;
+            }
+
+            .page-container {
+                width: min(100% - 24px, 1180px);
+                margin-top: 25px;
+            }
+
+            .page-heading h1 {
+                font-size: 25px;
+            }
+
+            .profile-header {
+                padding: 23px;
+                border-radius: 16px;
+            }
+
+            .profile-identity {
+                align-items: flex-start;
+            }
+
+            .large-avatar {
+                width: 65px;
+                height: 65px;
+                border-radius: 17px;
+                font-size: 22px;
+            }
+
+            .profile-name {
+                font-size: 21px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .brand-name {
+                font-size: 16px;
+            }
+
+            .brand-icon {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+            }
+
+            .topbar-actions {
+                gap: 7px;
+            }
+
+            .profile-identity {
+                gap: 13px;
+            }
+
+            .profile-header {
+                padding: 20px;
+            }
+
+            .completion-box {
+                min-width: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========================================
+         TOPBAR
+    ======================================== -->
+
+    <header class="topbar">
+
+        <a href="student-dashboard.html" class="brand">
+
+            <div class="brand-icon">
+                CB
+            </div>
+
+            <div class="brand-text">
+                <span class="brand-name">
+                    CareerBridge
+                </span>
+
+                <span class="brand-tagline">
+                    Connect. Apply. Grow.
+                </span>
+            </div>
+
+        </a>
+
+        <div class="topbar-actions">
+
+            <a
+                href="student-dashboard.html"
+                class="back-button"
+            >
+                ← Dashboard
+            </a>
+
+            <div class="user-mini">
+
+                <div
+                    class="user-avatar"
+                    id="topAvatar"
+                >
+                    U
+                </div>
+
+                <div class="user-mini-info">
+
+                    <span
+                        class="user-mini-name"
+                        id="topUserName"
+                    >
+                        Student
+                    </span>
+
+                    <span class="user-mini-role">
+                        Student
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ========================================
+         LOADING
+    ======================================== -->
+
+    <div
+        class="loading-screen"
+        id="loadingScreen"
+    >
+
+        <div class="loading-box">
+
+            <div class="spinner"></div>
+
+            <p>
+                Loading your profile...
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ========================================
+         MAIN CONTENT
+    ======================================== -->
+
+    <main
+        class="page-container"
+        id="mainContent"
+        style="display: none;"
+    >
+
+        <div class="page-heading">
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                Keep your profile updated to improve your chances of getting noticed by recruiters.
+            </p>
+
+        </div>
+
+
+        <!-- PROFILE HEADER -->
+
+        <section class="profile-header">
+
+            <div class="profile-identity">
+
+                <div
+                    class="large-avatar"
+                    id="largeAvatar"
+                >
+                    U
+                </div>
+
+                <div>
+
+                    <div
+                        class="profile-name"
+                        id="profileName"
+                    >
+                        Student
+                    </div>
+
+                    <div
+                        class="profile-email"
+                        id="profileEmail"
+                    >
+                        student@example.com
+                    </div>
+
+                    <span class="profile-role">
+                        Job Seeker
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="completion-box">
+
+                <div class="completion-top">
+
+                    <span class="completion-label">
+                        Profile Completion
+                    </span>
+
+                    <span
+                        class="completion-value"
+                        id="completionValue"
+                    >
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-bar"
+                        id="progressBar"
+                    ></div>
+
+                </div>
+
+                <div class="completion-note">
+                    Complete your profile to stand out to recruiters.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div
+            class="alert"
+            id="alertMessage"
+        ></div>
+
+
+        <div class="content-grid">
+
+
+            <!-- ========================================
+                 PROFILE FORM
+            ======================================== -->
+
+            <section class="card">
+
+                <div class="card-header">
+
+                    <h2>
+                        Personal & Professional Information
+                    </h2>
+
+                    <p>
+                        Add accurate information so recruiters can understand your profile.
+                    </p>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form id="profileForm">
+
+                        <div class="form-grid">
+
+
+                            <!-- Phone -->
+
+                            <div class="form-group">
+
+                                <label for="phone">
+                                    Phone Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="Enter your phone number"
+                                >
+
+                            </div>
+
+
+                            <!-- Location -->
+
+                            <div class="form-group">
+
+                                <label for="location">
+                                    Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="location"
+                                    name="location"
+                                    placeholder="e.g. Coimbatore, Tamil Nadu"
+                                >
+
+                            </div>
+
+
+                            <!-- Education -->
+
+                            <div class="form-group full">
+
+                                <label for="education">
+                                    Education
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="education"
+                                    name="education"
+                                    placeholder="e.g. B.Tech Artificial Intelligence and Data Science"
+                                >
+
+                                <span class="form-help">
+                                    Mention your degree, branch, college or current education.
+                                </span>
+
+                            </div>
+
+
+                            <!-- Skills -->
+
+                            <div class="form-group full">
+
+                                <label for="skills">
+                                    Skills
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="skills"
+                                    name="skills"
+                                    placeholder="e.g. SQL, Python, Excel, Power BI"
+                                >
+
+                                <span class="form-help">
+                                    Separate multiple skills with commas.
+                                </span>
+
+                            </div>
+
+
+                            <!-- Experience -->
+
+                            <div class="form-group full">
+
+                                <label for="experience">
+                                    Experience
+                                </label>
+
+                                <textarea
+                                    id="experience"
+                                    name="experience"
+                                    placeholder="Describe your internships, projects, freelance work or other relevant experience."
+                                ></textarea>
+
+                            </div>
+
+
+                            <!-- Bio -->
+
+                            <div class="form-group full">
+
+                                <label for="bio">
+                                    Professional Bio
+                                </label>
+
+                                <textarea
+                                    id="bio"
+                                    name="bio"
+                                    placeholder="Write a short introduction about yourself, your interests and career goals."
+                                ></textarea>
+
+                            </div>
+
+
+                            <!-- Resume -->
+
+                            <div class="form-group full">
+
+                                <label for="resume">
+                                    Resume Link
+                                </label>
+
+                                <input
+                                    type="url"
+                                    id="resume"
+                                    name="resume"
+                                    placeholder="https://drive.google.com/..."
+                                >
+
+                                <span class="form-help">
+                                    Add a shareable Google Drive, OneDrive or other resume link.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-actions">
+
+                            <button
+                                type="button"
+                                class="button button-secondary"
+                                id="cancelButton"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="button button-primary"
+                                id="saveButton"
+                            >
+                                Save Profile
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================
+                 SIDEBAR
+            ======================================== -->
+
+            <aside>
+
+
+                <!-- Account Information -->
+
+                <div class="side-card">
+
+                    <h3>
+                        Account Information
+                    </h3>
+
+
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            @
+                        </div>
+
+                        <div class="info-content">
+
+                            <div class="info-label">
+                                Email
+                            </div>
+
+                            <div
+                                class="info-value"
+                                id="accountEmail"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            ID
+                        </div>
+
+                        <div class="info-content">
+
+                            <div class="info-label">
+                                User ID
+                            </div>
+
+                            <div
+                                class="info-value"
+                                id="accountId"
+                            >
+                                -
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-item">
+
+                        <div class="info-icon">
+                            ✓
+                        </div>
+
+                        <div class="info-content">
+
+                            <div class="info-label">
+                                Account Type
+                            </div>
+
+                            <div class="info-value">
+                                Student / Job Seeker
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Profile Tips -->
+
+                <div class="side-card">
+
+                    <h3>
+                        Profile Tips
+                    </h3>
+
+                    <ul class="tips-list">
+
+                        <li>
+                            <span class="tip-check">✓</span>
+                            <span>
+                                Add all your important technical skills.
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="tip-check">✓</span>
+                            <span>
+                                Keep your education details clear and updated.
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="tip-check">✓</span>
+                            <span>
+                                Add relevant projects and internship experience.
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="tip-check">✓</span>
+                            <span>
+                                Add a shareable resume link.
+                            </span>
+                        </li>
+
+                        <li>
+                            <span class="tip-check">✓</span>
+                            <span>
+                                Write a short and professional bio.
+                            </span>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* ========================================
+           API HELPER
+        ======================================== */
+
+        async function apiRequest(url, options = {}) {
+
+            const response = await fetch(url, {
+                credentials: "include",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    ...(options.headers || {})
+                },
+
+                ...options
+            });
+
+            let data;
+
+            try {
+
+                data = await response.json();
+
+            } catch {
+
+                data = {
+                    success: false,
+                    message: "Invalid server response"
+                };
+
+            }
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Something went wrong"
+                );
+
+            }
+
+            return data;
+        }
+
+
+        /* ========================================
+           ELEMENTS
+        ======================================== */
+
+        const loadingScreen =
+            document.getElementById("loadingScreen");
+
+        const mainContent =
+            document.getElementById("mainContent");
+
+        const alertMessage =
+            document.getElementById("alertMessage");
+
+        const profileForm =
+            document.getElementById("profileForm");
+
+        const saveButton =
+            document.getElementById("saveButton");
+
+        const cancelButton =
+            document.getElementById("cancelButton");
+
+
+        /* ========================================
+           INITIALIZE
+        ======================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeProfile
+        );
+
+
+        async function initializeProfile() {
+
+            try {
+
+                const authData = await apiRequest(
+                    "/api/auth/me",
+                    {
+                        method: "GET"
+                    }
+                );
+
+                if (
+                    !authData.success ||
+                    !authData.user ||
+                    authData.user.role !== "student"
+                ) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+                }
+
+
+                await loadProfile();
+
+            } catch (error) {
+
+                console.error(
+                    "Profile initialization failed:",
+                    error
+                );
+
+                window.location.href =
+                    "login.html";
+            }
+        }
+
+
+        /* ========================================
+           LOAD PROFILE
+        ======================================== */
+
+        async function loadProfile() {
+
+            try {
+
+                const data = await apiRequest(
+                    "/api/profile",
+                    {
+                        method: "GET"
+                    }
+                );
+
+                if (!data.success || !data.profile) {
+
+                    throw new Error(
+                        data.message ||
+                        "Unable to load profile"
+                    );
+                }
+
+                populateProfile(
+                    data.profile
+                );
+
+                loadingScreen.style.display =
+                    "none";
+
+                mainContent.style.display =
+                    "block";
+
+            } catch (error) {
+
+                console.error(
+                    "Load profile error:",
+                    error
+                );
+
+                showAlert(
+                    error.message ||
+                    "Unable to load profile",
+                    "error"
+                );
+
+                loadingScreen.style.display =
+                    "none";
+
+                mainContent.style.display =
+                    "block";
+            }
+        }
+
+
+        /* ========================================
+           POPULATE PROFILE
+        ======================================== */
+
+        function populateProfile(profile) {
+
+            const name =
+                profile.name || "Student";
+
+            const email =
+                profile.email || "";
+
+            document.getElementById(
+                "profileName"
+            ).textContent = name;
+
+            document.getElementById(
+                "profileEmail"
+            ).textContent = email;
+
+            document.getElementById(
+                "topUserName"
+            ).textContent = name;
+
+            document.getElementById(
+                "accountEmail"
+            ).textContent = email;
+
+            document.getElementById(
+                "accountId"
+            ).textContent =
+                profile.id || "-";
+
+
+            const initials =
+                getInitials(name);
+
+            document.getElementById(
+                "largeAvatar"
+            ).textContent = initials;
+
+            document.getElementById(
+                "topAvatar"
+            ).textContent = initials;
+
+
+            document.getElementById(
+                "phone"
+            ).value = profile.phone || "";
+
+            document.getElementById(
+                "location"
+            ).value = profile.location || "";
+
+            document.getElementById(
+                "education"
+            ).value = profile.education || "";
+
+            document.getElementById(
+                "skills"
+            ).value = profile.skills || "";
+
+            document.getElementById(
+                "experience"
+            ).value = profile.experience || "";
+
+            document.getElementById(
+                "bio"
+            ).value = profile.bio || "";
+
+            document.getElementById(
+                "resume"
+            ).value = profile.resume || "";
+
+
+            updateCompletion(
+                Number(
+                    profile.profile_completion || 0
+                )
+            );
+        }
+
+
+        /* ========================================
+           INITIALS
+        ======================================== */
+
+        function getInitials(name) {
+
+            const words =
+                name.trim().split(/\s+/);
+
+            if (words.length === 1) {
+
+                return words[0]
+                    .substring(0, 2)
+                    .toUpperCase();
+            }
+
+            return (
+                words[0].charAt(0) +
+                words[words.length - 1].charAt(0)
+            ).toUpperCase();
+        }
+
+
+        /* ========================================
+           PROFILE COMPLETION
+        ======================================== */
+
+        function updateCompletion(percentage) {
+
+            const safePercentage =
+                Math.max(
+                    0,
+                    Math.min(
+                        100,
+                        percentage
+                    )
+                );
+
+            document.getElementById(
+                "completionValue"
+            ).textContent =
+                `${safePercentage}%`;
+
+            document.getElementById(
+                "progressBar"
+            ).style.width =
+                `${safePercentage}%`;
+        }
+
+
+        /* ========================================
+           SAVE PROFILE
+        ======================================== */
+
+        profileForm.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+                saveButton.disabled = true;
+
+                saveButton.textContent =
+                    "Saving...";
+
+                hideAlert();
+
+                const profileData = {
+
+                    phone:
+                        document.getElementById(
+                            "phone"
+                        ).value.trim(),
+
+                    location:
+                        document.getElementById(
+                            "location"
+                        ).value.trim(),
+
+                    education:
+                        document.getElementById(
+                            "education"
+                        ).value.trim(),
+
+                    skills:
+                        document.getElementById(
+                            "skills"
+                        ).value.trim(),
+
+                    experience:
+                        document.getElementById(
+                            "experience"
+                        ).value.trim(),
+
+                    bio:
+                        document.getElementById(
+                            "bio"
+                        ).value.trim(),
+
+                    resume:
+                        document.getElementById(
+                            "resume"
+                        ).value.trim()
+                };
+
+
+                try {
+
+                    const data =
+                        await apiRequest(
+                            "/api/profile",
+                            {
+                                method: "PUT",
+                                body: JSON.stringify(
+                                    profileData
+                                )
+                            }
+                        );
+
+
+                    if (!data.success) {
+
+                        throw new Error(
+                            data.message ||
+                            "Unable to save profile"
+                        );
+                    }
+
+
+                    populateProfile(
+                        data.profile
+                    );
+
+
+                    showAlert(
+                        "Profile updated successfully!",
+                        "success"
+                    );
+
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Save profile error:",
+                        error
+                    );
+
+                    showAlert(
+                        error.message ||
+                        "Unable to save profile",
+                        "error"
+                    );
+
+                } finally {
+
+                    saveButton.disabled = false;
+
+                    saveButton.textContent =
+                        "Save Profile";
+                }
+
+            }
+        );
+
+
+        /* ========================================
+           CANCEL BUTTON
+        ======================================== */
+
+        cancelButton.addEventListener(
+            "click",
+            () => {
+
+                loadProfile();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
+        );
+
+
+        /* ========================================
+           ALERT
+        ======================================== */
+
+        function showAlert(
+            message,
+            type
+        ) {
+
+            alertMessage.textContent =
+                message;
+
+            alertMessage.className =
+                `alert show ${type}`;
+        }
+
+
+        function hideAlert() {
+
+            alertMessage.textContent = "";
+
+            alertMessage.className =
+                "alert";
+        }
+
+    </script>
+
+</body>
+</html>

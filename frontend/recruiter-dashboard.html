@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Recruiter Dashboard | CareerBridge</title>
+
+    <meta
+        name="description"
+        content="CareerBridge recruiter dashboard for managing jobs and applicants."
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        /* ========================================
+           Recruiter Dashboard
+           ======================================== */
+
+        body {
+            background: #f8fafc;
+        }
+
+        .dashboard-layout {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* ========================================
+           Sidebar
+           ======================================== */
+
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            background: var(--white);
+            border-right: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            margin-bottom: 35px;
+        }
+
+        .sidebar-brand .brand-icon {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            color: var(--white);
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+            font-weight: 800;
+        }
+
+        .sidebar-brand-text {
+            margin-left: 10px;
+        }
+
+        .sidebar-brand-text strong {
+            display: block;
+            color: var(--dark);
+            font-size: 15px;
+        }
+
+        .sidebar-brand-text span {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 2px;
+        }
+
+        .sidebar-section-title {
+            padding: 0 12px;
+            margin: 0 0 9px;
+            color: #94a3b8;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-nav {
+            display: grid;
+            gap: 5px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 11px 12px;
+            border-radius: 9px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+            transition:
+                color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .sidebar-link:hover {
+            color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .sidebar-link.active {
+            color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .sidebar-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .sidebar-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 10px;
+            background: #f8fafc;
+        }
+
+        .profile-avatar {
+            width: 35px;
+            height: 35px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--white);
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .profile-info {
+            min-width: 0;
+        }
+
+        .profile-info strong {
+            display: block;
+            overflow: hidden;
+            color: var(--dark);
+            font-size: 11px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .profile-info span {
+            display: block;
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 2px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 9px;
+            color: #dc2626;
+            background: transparent;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .logout-btn:hover {
+            background: #fef2f2;
+        }
+
+        /* ========================================
+           Main Content
+           ======================================== */
+
+        .dashboard-main {
+            width: calc(100% - 250px);
+            margin-left: 250px;
+            min-height: 100vh;
+            transform: none !important;
+            perspective: none !important;
+        }
+
+        .dashboard-header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 35px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-title h1 {
+            color: var(--dark);
+            font-size: 19px;
+            letter-spacing: -0.5px;
+        }
+
+        .header-title p {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: var(--muted);
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .notification-btn:hover {
+            color: var(--primary);
+            border-color: #bfdbfe;
+            background: #eff6ff;
+        }
+
+        .header-avatar {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--white);
+            background: linear-gradient(
+                135deg,
+                #2563eb,
+                #7c3aed
+            );
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* ========================================
+           Content
+           ======================================== */
+
+        .dashboard-content {
+            padding: 30px 35px 45px;
+        }
+
+        .welcome-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            padding: 25px 28px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            color: var(--white);
+            background:
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(255, 255, 255, 0.14),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #1d4ed8,
+                    #6d28d9
+                );
+        }
+
+        .welcome-content h2 {
+            font-size: 24px;
+            letter-spacing: -0.7px;
+            margin-bottom: 6px;
+        }
+
+        .welcome-content p {
+            color: #dbeafe;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .post-job-btn {
+            flex-shrink: 0;
+            color: var(--primary);
+            background: var(--white);
+            border: none;
+        }
+
+        .post-job-btn:hover {
+            background: #f8fafc;
+        }
+
+        /* ========================================
+           Stats
+           ======================================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+            gap: 15px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            padding: 19px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--white);
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9px;
+            background: #eff6ff;
+            font-size: 16px;
+        }
+
+        .stat-change {
+            color: #16a34a;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            color: var(--dark);
+            font-size: 25px;
+            font-weight: 750;
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        /* ========================================
+           Main Grid
+           ======================================== */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 0.9fr;
+            gap: 20px;
+            transform: none !important;
+            perspective: none !important;
+        }
+
+        .dashboard-card {
+            transform: none !important;
+            rotate: none !important;
+            scale: 1 !important;
+            perspective: none !important;
+            transform-origin: center center !important;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .dashboard-card::before,
+        .dashboard-card::after {
+            transform: none !important;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h3 {
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .card-header p {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 3px;
+        }
+
+        .view-all {
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        /* ========================================
+           Job Cards
+           ======================================== */
+
+        .jobs-list {
+            padding: 7px 20px;
+        }
+
+        .job-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .job-item:last-child {
+            border-bottom: none;
+        }
+
+        .job-info {
+            min-width: 0;
+        }
+
+        .job-title {
+            color: var(--dark);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .job-company {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 7px;
+        }
+
+        .job-tag {
+            padding: 4px 7px;
+            border-radius: 5px;
+            color: #475569;
+            background: #f1f5f9;
+            font-size: 8px;
+        }
+
+        .job-status {
+            flex-shrink: 0;
+            padding: 5px 8px;
+            border-radius: 6px;
+            color: #166534;
+            background: #f0fdf4;
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        .job-status.closed {
+            color: #b91c1c;
+            background: #fef2f2;
+        }
+
+        /* ========================================
+           Applicant Activity
+           ======================================== */
+
+        .applicant-list {
+            padding: 7px 20px;
+        }
+
+        .applicant-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 13px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .applicant-item:last-child {
+            border-bottom: none;
+        }
+
+        .applicant-avatar {
+            width: 35px;
+            height: 35px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--primary);
+            background: #eff6ff;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .applicant-info {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .applicant-info strong {
+            display: block;
+            overflow: hidden;
+            color: var(--dark);
+            font-size: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .applicant-info span {
+            display: block;
+            overflow: hidden;
+            color: var(--muted);
+            font-size: 9px;
+            margin-top: 3px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .applicant-status {
+            padding: 4px 6px;
+            border-radius: 5px;
+            color: #1d4ed8;
+            background: #eff6ff;
+            font-size: 7px;
+            font-weight: 700;
+        }
+
+        .applicant-status.interview {
+            color: #7c3aed;
+            background: #f5f3ff;
+        }
+
+        .applicant-status.selected {
+            color: #166534;
+            background: #f0fdf4;
+        }
+
+        .applicant-status.rejected {
+            color: #b91c1c;
+            background: #fef2f2;
+        }
+
+        /* ========================================
+           Quick Actions
+           ======================================== */
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 18px 20px;
+        }
+
+        .quick-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            color: var(--dark);
+            background: var(--white);
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .quick-action:hover {
+            border-color: #bfdbfe;
+            background: #f8fbff;
+        }
+
+        .quick-action-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #eff6ff;
+            font-size: 14px;
+        }
+
+        .quick-action strong {
+            display: block;
+            font-size: 10px;
+        }
+
+        .quick-action span span {
+            display: block;
+            color: var(--muted);
+            font-size: 8px;
+            margin-top: 2px;
+        }
+
+        /* ========================================
+           Loading / Empty States
+           ======================================== */
+
+        .dashboard-message {
+            padding: 30px 20px;
+            color: var(--muted);
+            text-align: center;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* ========================================
+           Mobile Menu
+           ======================================== */
+
+        .mobile-menu-btn {
+            display: none;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        /* ========================================
+           Responsive
+           ======================================== */
+
+        @media (max-width: 1100px) {
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 850px) {
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+                box-shadow:
+                    10px 0 30px rgba(
+                        15,
+                        23,
+                        42,
+                        0.12
+                    );
+            }
+
+            .dashboard-main {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .dashboard-header {
+                padding: 0 20px;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header-title {
+                display: none;
+            }
+
+            .dashboard-content {
+                padding: 25px 20px 40px;
+            }
+
+            .welcome-banner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 550px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 14px;
+            }
+
+            .stat-value {
+                font-size: 21px;
+            }
+
+            .welcome-banner {
+                padding: 20px;
+            }
+
+            .welcome-content h2 {
+                font-size: 20px;
+            }
+
+            .job-item {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .job-status {
+                align-self: flex-start;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 380px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- ========================================
+             Sidebar
+             ======================================== -->
+
+        <aside
+            class="sidebar"
+            id="sidebar"
+        >
+
+            <a
+                href="index.html"
+                class="sidebar-brand"
+            >
+
+                <span class="brand-icon">
+                    C
+                </span>
+
+                <span class="sidebar-brand-text">
+
+                    <strong>
+                        CareerBridge
+                    </strong>
+
+                    <span>
+                        Recruiter Portal
+                    </span>
+
+                </span>
+
+            </a>
+
+            <p class="sidebar-section-title">
+                Main Menu
+            </p>
+
+            <nav class="sidebar-nav">
+
+                <a
+                    href="#"
+                    class="sidebar-link active"
+                >
+                    <span class="sidebar-icon">
+                        ▦
+                    </span>
+                    Dashboard
+                </a>
+
+                <!-- FIXED: My Jobs now opens my-jobs.html -->
+                <a
+                    href="my-jobs.html"
+                    class="sidebar-link"
+                >
+                    <span class="sidebar-icon">
+                        💼
+                    </span>
+                    My Jobs
+                </a>
+
+                <a
+                    href="#applicants"
+                    class="sidebar-link"
+                >
+                    <span class="sidebar-icon">
+                        👥
+                    </span>
+                    Applicants
+                </a>
+
+                <a
+                    href="#analytics"
+                    class="sidebar-link"
+                >
+                    <span class="sidebar-icon">
+                        ▥
+                    </span>
+                    Analytics
+                </a>
+
+            </nav>
+
+            <p
+                class="sidebar-section-title"
+                style="margin-top: 28px;"
+            >
+                Account
+            </p>
+
+            <nav class="sidebar-nav">
+
+                <a
+                    href="#profile"
+                    class="sidebar-link"
+                >
+                    <span class="sidebar-icon">
+                        ◯
+                    </span>
+                    Company Profile
+                </a>
+
+                <a
+                    href="#settings"
+                    class="sidebar-link"
+                >
+                    <span class="sidebar-icon">
+                        ⚙
+                    </span>
+                    Settings
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <div class="sidebar-profile">
+
+                    <div
+                        class="profile-avatar"
+                        id="sidebarAvatar"
+                    >
+                        CR
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong id="sidebarName">
+                            Recruiter
+                        </strong>
+
+                        <span>
+                            Recruiter Account
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="logout-btn"
+                    id="logoutButton"
+                    type="button"
+                >
+
+                    <span class="sidebar-icon">
+                        ↪
+                    </span>
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </aside>
+
+        <!-- ========================================
+             Main
+             ======================================== -->
+
+        <main class="dashboard-main">
+
+            <!-- Header -->
+
+            <header class="dashboard-header">
+
+                <button
+                    class="mobile-menu-btn"
+                    id="mobileMenuButton"
+                    type="button"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+                <div class="header-title">
+
+                    <h1>
+                        Recruiter Dashboard
+                    </h1>
+
+                    <p>
+                        Manage your hiring activity in one place.
+                    </p>
+
+                </div>
+
+                <div class="header-actions">
+
+                    <button
+                        class="notification-btn"
+                        type="button"
+                        title="Notifications"
+                    >
+                        🔔
+                    </button>
+
+                    <div
+                        class="header-avatar"
+                        id="headerAvatar"
+                    >
+                        CR
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Dashboard Content -->
+
+            <section class="dashboard-content">
+
+                <!-- Welcome -->
+
+                <div class="welcome-banner">
+
+                    <div class="welcome-content">
+
+                        <h2 id="welcomeTitle">
+                            Welcome back, Recruiter! 👋
+                        </h2>
+
+                        <p>
+                            Find the right talent and build your
+                            next great team with CareerBridge.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="create-job.html"
+                        class="btn btn-primary post-job-btn"
+                    >
+                        + Post New Job
+                    </a>
+
+                </div>
+
+                <!-- Statistics -->
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <span class="stat-icon">
+                                💼
+                            </span>
+
+                            <span
+                                class="stat-change"
+                                id="jobsChange"
+                            >
+                                Live
+                            </span>
+
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="jobsCount"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Jobs Posted
+                        </div>
+
+                    </div>
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <span class="stat-icon">
+                                👥
+                            </span>
+
+                            <span
+                                class="stat-change"
+                                id="applicantsChange"
+                            >
+                                Live
+                            </span>
+
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="applicantsCount"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Total Applicants
+                        </div>
+
+                    </div>
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <span class="stat-icon">
+                                ⭐
+                            </span>
+
+                            <span
+                                class="stat-change"
+                                id="shortlistedChange"
+                            >
+                                Live
+                            </span>
+
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="shortlistedCount"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Shortlisted
+                        </div>
+
+                    </div>
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <span class="stat-icon">
+                                ✓
+                            </span>
+
+                            <span
+                                class="stat-change"
+                                id="selectedChange"
+                            >
+                                Live
+                            </span>
+
+                        </div>
+
+                        <div
+                            class="stat-value"
+                            id="selectedCount"
+                        >
+                            0
+                        </div>
+
+                        <div class="stat-label">
+                            Selected Candidates
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Main Grid -->
+
+                <div class="dashboard-grid">
+
+                    <!-- Jobs -->
+
+                    <div
+                        class="dashboard-card"
+                        id="jobs"
+                    >
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    Recent Job Posts
+                                </h3>
+
+                                <p>
+                                    Manage your active opportunities.
+                                </p>
+
+                            </div>
+
+                            <a
+                                href="my-jobs.html"
+                                class="view-all"
+                            >
+                                View All
+                            </a>
+
+                        </div>
+
+                        <div
+                            class="jobs-list"
+                            id="jobsList"
+                        >
+
+                            <div class="dashboard-message">
+                                Loading your jobs...
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Applicant Activity -->
+
+                    <div
+                        class="dashboard-card"
+                        id="applicants"
+                    >
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    Recent Applicants
+                                </h3>
+
+                                <p>
+                                    Latest candidate activity.
+                                </p>
+
+                            </div>
+
+                            <a
+                                href="#applicants"
+                                class="view-all"
+                            >
+                                View All
+                            </a>
+
+                        </div>
+
+                        <div
+                            class="applicant-list"
+                            id="applicantList"
+                        >
+
+                            <div class="dashboard-message">
+                                Loading applicants...
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Quick Actions -->
+
+                    <div
+                        class="dashboard-card"
+                        id="analytics"
+                    >
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    Quick Actions
+                                </h3>
+
+                                <p>
+                                    Frequently used recruiter tools.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="quick-actions">
+
+                            <a
+                                href="create-job.html"
+                                class="quick-action"
+                            >
+
+                                <span class="quick-action-icon">
+                                    +
+                                </span>
+
+                                <span>
+
+                                    <strong>
+                                        Post New Job
+                                    </strong>
+
+                                    <span>
+                                        Create an opportunity
+                                    </span>
+
+                                </span>
+
+                            </a>
+
+                            <a
+                                href="#applicants"
+                                class="quick-action"
+                            >
+
+                                <span class="quick-action-icon">
+                                    👥
+                                </span>
+
+                                <span>
+
+                                    <strong>
+                                        View Applicants
+                                    </strong>
+
+                                    <span>
+                                        Review candidates
+                                    </span>
+
+                                </span>
+
+                            </a>
+
+                            <a
+                                href="#analytics"
+                                class="quick-action"
+                            >
+
+                                <span class="quick-action-icon">
+                                    ▥
+                                </span>
+
+                                <span>
+
+                                    <strong>
+                                        Hiring Analytics
+                                    </strong>
+
+                                    <span>
+                                        Track performance
+                                    </span>
+
+                                </span>
+
+                            </a>
+
+                            <a
+                                href="#profile"
+                                class="quick-action"
+                            >
+
+                                <span class="quick-action-icon">
+                                    ◯
+                                </span>
+
+                                <span>
+
+                                    <strong>
+                                        Company Profile
+                                    </strong>
+
+                                    <span>
+                                        Update company details
+                                    </span>
+
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Hiring Overview -->
+
+                    <div
+                        class="dashboard-card"
+                        id="profile"
+                    >
+
+                        <div class="card-header">
+
+                            <div>
+
+                                <h3>
+                                    Hiring Overview
+                                </h3>
+
+                                <p>
+                                    Current recruitment pipeline.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="jobs-list"
+                            id="hiringOverview"
+                        >
+
+                            <div class="job-item">
+
+                                <div class="job-info">
+
+                                    <div class="job-title">
+                                        Applied
+                                    </div>
+
+                                    <div class="job-company">
+                                        Candidates waiting for review
+                                    </div>
+
+                                </div>
+
+                                <strong id="overviewApplied">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="job-item">
+
+                                <div class="job-info">
+
+                                    <div class="job-title">
+                                        Shortlisted
+                                    </div>
+
+                                    <div class="job-company">
+                                        Candidates selected for next stage
+                                    </div>
+
+                                </div>
+
+                                <strong id="overviewShortlisted">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="job-item">
+
+                                <div class="job-info">
+
+                                    <div class="job-title">
+                                        Interview
+                                    </div>
+
+                                    <div class="job-company">
+                                        Candidates in interview stage
+                                    </div>
+
+                                </div>
+
+                                <strong id="overviewInterview">
+                                    0
+                                </strong>
+
+                            </div>
+
+                            <div class="job-item">
+
+                                <div class="job-info">
+
+                                    <div class="job-title">
+                                        Selected
+                                    </div>
+
+                                    <div class="job-company">
+                                        Successfully hired candidates
+                                    </div>
+
+                                </div>
+
+                                <strong id="overviewSelected">
+                                    0
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script>
+
+        /* ========================================
+           API Helper
+           ======================================== */
+
+        async function apiRequest(
+            url,
+            options = {}
+        ) {
+
+            const response = await fetch(
+                url,
+                {
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                        ...(options.headers || {})
+                    },
+                    ...options
+                }
+            );
+
+            let data;
+
+            try {
+
+                data = await response.json();
+
+            } catch {
+
+                data = {
+                    success: false,
+                    message: "Invalid server response"
+                };
+
+            }
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Something went wrong"
+                );
+
+            }
+
+            return data;
+
+        }
+
+        /* ========================================
+           Utility Functions
+           ======================================== */
+
+        function getInitials(name) {
+
+            if (!name) {
+                return "CR";
+            }
+
+            const parts = name
+                .trim()
+                .split(/\s+/);
+
+            if (parts.length === 1) {
+
+                return parts[0]
+                    .substring(0, 2)
+                    .toUpperCase();
+
+            }
+
+            return (
+                parts[0][0] +
+                parts[parts.length - 1][0]
+            ).toUpperCase();
+
+        }
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+        function getApplicationsArray(data) {
+
+            if (!data) {
+                return [];
+            }
+
+            if (Array.isArray(data)) {
+                return data;
+            }
+
+            if (Array.isArray(data.applications)) {
+                return data.applications;
+            }
+
+            if (Array.isArray(data.data)) {
+                return data.data;
+            }
+
+            return [];
+
+        }
+
+        function getJobsArray(data) {
+
+            if (!data) {
+                return [];
+            }
+
+            if (Array.isArray(data)) {
+                return data;
+            }
+
+            if (Array.isArray(data.jobs)) {
+                return data.jobs;
+            }
+
+            if (Array.isArray(data.data)) {
+                return data.data;
+            }
+
+            return [];
+
+        }
+
+        /* ========================================
+           Load Recruiter
+           ======================================== */
+
+        async function loadRecruiter() {
+
+            try {
+
+                const data = await apiRequest(
+                    "/api/auth/me",
+                    {
+                        method: "GET"
+                    }
+                );
+
+                const user =
+                    data.user ||
+                    data.data ||
+                    data;
+
+                if (
+                    !user ||
+                    user.role !== "recruiter"
+                ) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return null;
+
+                }
+
+                const name =
+                    user.name ||
+                    "Recruiter";
+
+                document.getElementById(
+                    "welcomeTitle"
+                ).textContent =
+                    `Welcome back, ${name}! 👋`;
+
+                document.getElementById(
+                    "sidebarName"
+                ).textContent =
+                    name;
+
+                const initials =
+                    getInitials(name);
+
+                document.getElementById(
+                    "sidebarAvatar"
+                ).textContent =
+                    initials;
+
+                document.getElementById(
+                    "headerAvatar"
+                ).textContent =
+                    initials;
+
+                return user;
+
+            } catch (error) {
+
+                console.error(
+                    "Recruiter authentication error:",
+                    error
+                );
+
+                window.location.href =
+                    "login.html";
+
+                return null;
+
+            }
+
+        }
+
+        /* ========================================
+           Load Recruiter Jobs
+           ======================================== */
+
+        async function loadJobs() {
+
+            const jobsList =
+                document.getElementById(
+                    "jobsList"
+                );
+
+            try {
+
+                const data = await apiRequest(
+                    "/api/jobs/my",
+                    {
+                        method: "GET"
+                    }
+                );
+
+                const jobs =
+                    getJobsArray(data);
+
+                document.getElementById(
+                    "jobsCount"
+                ).textContent =
+                    jobs.length;
+
+                if (jobs.length === 0) {
+
+                    jobsList.innerHTML = `
+                        <div class="dashboard-message">
+                            You have not posted any jobs yet.
+                            <br><br>
+                            <a
+                                href="create-job.html"
+                                style="
+                                    color:#2563eb;
+                                    font-weight:700;
+                                "
+                            >
+                                Post your first job →
+                            </a>
+                        </div>
+                    `;
+
+                    renderApplicants([]);
+
+                    updateApplicationStatistics([]);
+
+                    return {
+                        jobs: [],
+                        applications: []
+                    };
+
+                }
+
+                const applicationResults =
+                    await Promise.all(
+                        jobs.map(
+                            async (job) => {
+
+                                try {
+
+                                    const result =
+                                        await apiRequest(
+                                            `/api/applications/job/${job.id}`,
+                                            {
+                                                method: "GET"
+                                            }
+                                        );
+
+                                    return getApplicationsArray(
+                                        result
+                                    );
+
+                                } catch (error) {
+
+                                    console.error(
+                                        `Failed to load applications for job ${job.id}:`,
+                                        error
+                                    );
+
+                                    return [];
+
+                                }
+
+                            }
+                        )
+                    );
+
+                const allApplications =
+                    applicationResults.flat();
+
+                updateApplicationStatistics(
+                    allApplications
+                );
+
+                renderJobs(
+                    jobs,
+                    allApplications
+                );
+
+                renderApplicants(
+                    allApplications
+                );
+
+                return {
+                    jobs,
+                    applications: allApplications
+                };
+
+            } catch (error) {
+
+                console.error(
+                    "Failed to load recruiter jobs:",
+                    error
+                );
+
+                document.getElementById(
+                    "jobsCount"
+                ).textContent = "0";
+
+                jobsList.innerHTML = `
+                    <div class="dashboard-message">
+                        Unable to load your jobs.
+                        <br>
+                        Please refresh the page.
+                    </div>
+                `;
+
+                renderApplicants([]);
+
+                updateApplicationStatistics([]);
+
+                return {
+                    jobs: [],
+                    applications: []
+                };
+
+            }
+
+        }
+
+        /* ========================================
+           Update Application Statistics
+           ======================================== */
+
+        function updateApplicationStatistics(
+            applications
+        ) {
+
+            const totalApplicants =
+                applications.length;
+
+            const shortlisted =
+                applications.filter(
+                    application =>
+                        application.status ===
+                        "Shortlisted"
+                ).length;
+
+            const selected =
+                applications.filter(
+                    application =>
+                        application.status ===
+                        "Selected"
+                ).length;
+
+            const interview =
+                applications.filter(
+                    application =>
+                        application.status ===
+                        "Interview"
+                ).length;
+
+            const applied =
+                applications.filter(
+                    application =>
+                        application.status ===
+                        "Applied"
+                ).length;
+
+            document.getElementById(
+                "applicantsCount"
+            ).textContent =
+                totalApplicants;
+
+            document.getElementById(
+                "shortlistedCount"
+            ).textContent =
+                shortlisted;
+
+            document.getElementById(
+                "selectedCount"
+            ).textContent =
+                selected;
+
+            document.getElementById(
+                "overviewApplied"
+            ).textContent =
+                applied;
+
+            document.getElementById(
+                "overviewShortlisted"
+            ).textContent =
+                shortlisted;
+
+            document.getElementById(
+                "overviewInterview"
+            ).textContent =
+                interview;
+
+            document.getElementById(
+                "overviewSelected"
+            ).textContent =
+                selected;
+
+        }
+
+        /* ========================================
+           Render Jobs
+           ======================================== */
+
+        function renderJobs(
+            jobs,
+            allApplications
+        ) {
+
+            const jobsList =
+                document.getElementById(
+                    "jobsList"
+                );
+
+            const recentJobs =
+                [...jobs]
+                    .sort(
+                        (a, b) => {
+
+                            const dateA =
+                                new Date(
+                                    a.created_at ||
+                                    a.updated_at ||
+                                    0
+                                );
+
+                            const dateB =
+                                new Date(
+                                    b.created_at ||
+                                    b.updated_at ||
+                                    0
+                                );
+
+                            return dateB - dateA;
+
+                        }
+                    )
+                    .slice(0, 5);
+
+            if (recentJobs.length === 0) {
+
+                jobsList.innerHTML = `
+                    <div class="dashboard-message">
+                        No jobs found.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+            jobsList.innerHTML =
+                recentJobs
+                    .map(
+                        job => {
+
+                            const jobApplications =
+                                allApplications.filter(
+                                    application =>
+                                        Number(
+                                            application.job_id
+                                        ) ===
+                                        Number(
+                                            job.id
+                                        )
+                                );
+
+                            const applicantCount =
+                                jobApplications.length;
+
+                            const status =
+                                String(
+                                    job.status ||
+                                    "open"
+                                ).toLowerCase();
+
+                            const isClosed =
+                                status ===
+                                "closed";
+
+                            const statusClass =
+                                isClosed
+                                    ? "closed"
+                                    : "";
+
+                            const statusText =
+                                isClosed
+                                    ? "Closed"
+                                    : "Active";
+
+                            return `
+                                <div class="job-item">
+
+                                    <div class="job-info">
+
+                                        <div class="job-title">
+                                            ${escapeHtml(
+                                                job.title ||
+                                                "Untitled Job"
+                                            )}
+                                        </div>
+
+                                        <div class="job-company">
+                                            ${escapeHtml(
+                                                job.company ||
+                                                "Company"
+                                            )}
+                                        </div>
+
+                                        <div class="job-meta">
+
+                                            <span class="job-tag">
+                                                ${escapeHtml(
+                                                    job.job_type ||
+                                                    "Job"
+                                                )}
+                                            </span>
+
+                                            <span class="job-tag">
+                                                ${escapeHtml(
+                                                    job.location ||
+                                                    "Not specified"
+                                                )}
+                                            </span>
+
+                                            <span class="job-tag">
+                                                ${applicantCount}
+                                                Applicant${
+                                                    applicantCount === 1
+                                                        ? ""
+                                                        : "s"
+                                                }
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                    <span
+                                        class="job-status ${statusClass}"
+                                    >
+                                        ${statusText}
+                                    </span>
+
+                                </div>
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+        /* ========================================
+           Render Applicants
+           ======================================== */
+
+        function renderApplicants(
+            applications
+        ) {
+
+            const applicantList =
+                document.getElementById(
+                    "applicantList"
+                );
+
+            if (
+                !applications ||
+                applications.length === 0
+            ) {
+
+                applicantList.innerHTML = `
+                    <div class="dashboard-message">
+                        No applications received yet.
+                    </div>
+                `;
+
+                return;
+
+            }
+
+            const recentApplications =
+                [...applications]
+                    .sort(
+                        (a, b) => {
+
+                            const dateA =
+                                new Date(
+                                    a.applied_at ||
+                                    a.created_at ||
+                                    0
+                                );
+
+                            const dateB =
+                                new Date(
+                                    b.applied_at ||
+                                    b.created_at ||
+                                    0
+                                );
+
+                            return dateB - dateA;
+
+                        }
+                    )
+                    .slice(0, 5);
+
+            applicantList.innerHTML =
+                recentApplications
+                    .map(
+                        application => {
+
+                            const applicantName =
+                                application.student_name ||
+                                application.name ||
+                                application.user_name ||
+                                "Student";
+
+                            const jobTitle =
+                                application.job_title ||
+                                application.title ||
+                                "Job Application";
+
+                            const status =
+                                application.status ||
+                                "Applied";
+
+                            let statusClass = "";
+
+                            if (
+                                status ===
+                                "Interview"
+                            ) {
+
+                                statusClass =
+                                    "interview";
+
+                            }
+
+                            if (
+                                status ===
+                                "Selected"
+                            ) {
+
+                                statusClass =
+                                    "selected";
+
+                            }
+
+                            if (
+                                status ===
+                                "Rejected"
+                            ) {
+
+                                statusClass =
+                                    "rejected";
+
+                            }
+
+                            return `
+                                <div class="applicant-item">
+
+                                    <div class="applicant-avatar">
+                                        ${escapeHtml(
+                                            getInitials(
+                                                applicantName
+                                            )
+                                        )}
+                                    </div>
+
+                                    <div class="applicant-info">
+
+                                        <strong>
+                                            ${escapeHtml(
+                                                applicantName
+                                            )}
+                                        </strong>
+
+                                        <span>
+                                            ${escapeHtml(
+                                                jobTitle
+                                            )}
+                                        </span>
+
+                                    </div>
+
+                                    <span
+                                        class="applicant-status ${statusClass}"
+                                    >
+                                        ${escapeHtml(
+                                            status
+                                        )}
+                                    </span>
+
+                                </div>
+                            `;
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+        /* ========================================
+           Mobile Sidebar
+           ======================================== */
+
+        const sidebar =
+            document.getElementById(
+                "sidebar"
+            );
+
+        const mobileMenuButton =
+            document.getElementById(
+                "mobileMenuButton"
+            );
+
+        mobileMenuButton.addEventListener(
+            "click",
+            () => {
+
+                sidebar.classList.toggle(
+                    "open"
+                );
+
+            }
+        );
+
+        /* ========================================
+           Close Sidebar on Navigation
+           ======================================== */
+
+        const sidebarLinks =
+            document.querySelectorAll(
+                ".sidebar-link"
+            );
+
+        sidebarLinks.forEach(
+            link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        if (
+                            window.innerWidth <=
+                            850
+                        ) {
+
+                            sidebar.classList.remove(
+                                "open"
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+        /* ========================================
+           Logout
+           ======================================== */
+
+        const logoutButton =
+            document.getElementById(
+                "logoutButton"
+            );
+
+        logoutButton.addEventListener(
+            "click",
+            async () => {
+
+                try {
+
+                    await apiRequest(
+                        "/api/auth/logout",
+                        {
+                            method: "POST"
+                        }
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Logout error:",
+                        error
+                    );
+
+                }
+
+                window.location.href =
+                    "login.html";
+
+            }
+        );
+
+        /* ========================================
+           Initialize Dashboard
+           ======================================== */
+
+        async function initializeDashboard() {
+
+            const user =
+                await loadRecruiter();
+
+            if (!user) {
+                return;
+            }
+
+            await loadJobs();
+
+        }
+
+        initializeDashboard();
+
+    </script>
+
+</body>
+
+</html>
