@@ -1,1484 +1,550 @@
-**# CareerBridge — Job \& Internship Portal**
+CareerBridge — Job & Internship Portal
 
+Connect. Apply. Grow.
 
+CareerBridge is a full-stack job and internship portal built to help students and job seekers discover opportunities and help recruiters manage job listings and applications.
 
-> \*\*Connect. Apply. Grow.\*\*
+Students can search and filter opportunities, view job details, save jobs, apply with a cover letter, manage their profiles, and track application statuses. Recruiters can publish and manage opportunities, review applicants, and update application statuses.
 
+Project status: Source code is available on GitHub. The application currently uses a local Flask backend and MySQL database; a public deployment is a separate step.
 
+Table of Contents
 
-CareerBridge is a web-based \*\***Job and Internship Portal**\*\* designed to connect students and job seekers with recruiters and companies through a simple, organized, and user-friendly platform.
+Features
 
+Screenshots
 
+Technology Stack
 
-The platform allows students to discover jobs and internships, search and filter opportunities, save jobs, apply for positions, manage their profiles, and track application statuses.
+Project Structure
 
+How It Works
 
+Database
 
-Recruiters can create and manage job opportunities, view applicants, and update application statuses.
+Getting Started
 
+Environment Variables
 
+Running the Application
 
-\---
+API Overview
 
+Security Notes
 
+Testing
 
-**## 📌 Project Overview**
+Future Improvements
 
+Project Information
 
+Features
 
-Finding suitable jobs and internships can be difficult for students and fresh graduates because opportunities are often scattered across multiple platforms.
+Student / Job Seeker
 
+Register and log in.
 
+View a student dashboard.
 
-CareerBridge provides a centralized platform where:
+Browse jobs and internships.
 
+Search by job title or company.
 
+Filter opportunities by location and job type.
 
-\- Students can discover relevant jobs and internships.
+View job details.
 
-\- Recruiters can publish job opportunities.
+Apply for opportunities with a cover letter.
 
-\- Students can apply directly through the platform.
+Save jobs and view saved opportunities.
 
-\- Recruiters can manage applications.
+View applications and track their status.
 
-\- Students can track their application progress.
+Manage profile information and profile completion.
 
-\- Notifications keep users informed about important updates.
+Receive notifications and view unread notification counts.
 
+Recruiter
 
+Register and log in as a recruiter.
 
-The system uses a \*\*role-based architecture\*\*, providing different functionality for students and recruiters.
+View the recruiter dashboard.
 
+Create, edit, and manage job listings.
 
+View applicants and review applications.
 
-\---
+Update application statuses.
 
+Receive notifications related to application activity.
 
+Application workflow
 
-**## 🎯 Objectives**
+A student or recruiter registers and signs in.
 
+Recruiters create job listings.
 
+Students search for opportunities and view job details.
 
-The main objectives of CareerBridge are:
+Students submit applications.
 
+Recruiters review applications and update their statuses.
 
+Notifications help keep the relevant users informed.
 
-1\. To provide a centralized job and internship discovery platform.
+Screenshots
 
-2\. To connect students and job seekers with recruiters.
+The screenshots below show selected screens from the project. Open any image to view it at full size.
 
-3\. To simplify the job application process.
+Home page
 
-4\. To allow recruiters to publish and manage job opportunities.
 
-5\. To provide application tracking for students.
 
-6\. To provide application management for recruiters.
+Registration
 
-7\. To notify users about important application updates.
 
-8\. To provide a responsive and user-friendly web interface.
 
-9\. To securely manage user authentication and application data.
+Login
 
 
 
-\---
+Student dashboard
 
 
 
-**# ✨ Key Features**
+Job search and filters
 
 
 
-**## 👨‍🎓 Student / Job Seeker Features**
+Job details
 
 
 
-\- User registration and login
+Saved jobs
 
-\- Student dashboard
 
-\- Job and internship search
 
-\- Job title and company search
+Recruiter dashboard
 
-\- Location filtering
 
-\- Job type filtering
 
-\- Job details viewing
+Create or edit a job
 
-\- Online job application
 
-\- Cover letter submission
 
-\- Saved jobs
+Notifications
 
-\- My Applications
 
-\- Application status tracking
 
-\- Student profile management
+Technology Stack
 
-\- Profile completion tracking
+Area
 
-\- Notifications
-
-\- Unread notification count
-
-\- Responsive interface
-
-
-
-\---
-
-
-
-**## 🏢 Recruiter Features**
-
-
-
-\- Recruiter registration and login
-
-\- Recruiter dashboard
-
-\- Create job opportunities
-
-\- Manage posted jobs
-
-\- Edit existing jobs
-
-\- View applicants
-
-\- Review applications
-
-\- Update application status
-
-\- Recruiter notifications
-
-\- Application management
-
-
-
-\---
-
-
-
-**# 🔄 Application Workflow**
-
-
-
-```text
-
-&#x20;                   CareerBridge
-
-&#x20;                        │
-
-&#x20;             ┌──────────┴──────────┐
-
-&#x20;             │                     │
-
-&#x20;         👨‍🎓 Student            🏢 Recruiter
-
-&#x20;             │                     │
-
-&#x20;             │                     │
-
-&#x20;       Register / Login       Register / Login
-
-&#x20;             │                     │
-
-&#x20;             │                     │
-
-&#x20;      Search Jobs            Create Job
-
-&#x20;             │                     │
-
-&#x20;      Filter Jobs            Manage Jobs
-
-&#x20;             │                     │
-
-&#x20;      View Details           View Applicants
-
-&#x20;             │                     │
-
-&#x20;         Apply              Update Status
-
-&#x20;             │                     │
-
-&#x20;             └──────────┬──────────┘
-
-&#x20;                        │
-
-&#x20;                 🔔 Notifications
-
-&#x20;                        │
-
-&#x20;                 Application Tracking
-
-
-
-**🛠️ Technology Stack**
+Technologies
 
 Frontend
 
-HTML5
-
-CSS3
-
-JavaScript
+HTML5, CSS3, JavaScript
 
 Backend
 
-Python
-
-Flask
-
-Flask-Bcrypt
+Python, Flask
 
 Database
 
 MySQL
 
-Database Connectivity
+Database connectivity
 
 MySQL Connector/Python
 
-Authentication \& Security
+Password hashing
 
-Flask session-based authentication
-
-Password hashing using Flask-Bcrypt / bcrypt
-
-Role-based access control
-
-Development Environment
-
-Visual Studio Code / any code editor
-
-Python
-
-MySQL
-
-Web Browser
-
-Windows PowerShell / Command Prompt
-
-
-
-**🏗️ Project Architecture**
-
-
-
-CareerBridge-CERSO-Task-5/
-
-│
-
-├── backend/
-
-│   ├── app.py
-
-│   ├── applications.py
-
-│   ├── auth.py
-
-│   ├── config.py
-
-│   ├── database.py
-
-│   ├── jobs.py
-
-│   ├── notifications.py
-
-│   ├── profile.py
-
-│   └── saved\_jobs.py
-
-│
-
-├── frontend/
-
-│   ├── css/
-
-│   ├── js/
-
-│   ├── applicants.html
-
-│   ├── create-job.html
-
-│   ├── edit-job.html
-
-│   ├── index.html
-
-│   ├── job-details.html
-
-│   ├── login.html
-
-│   ├── my-applications.html
-
-│   ├── my-jobs.html
-
-│   ├── notifications.html
-
-│   ├── recruiter-dashboard.html
-
-│   ├── register.html
-
-│   ├── saved-jobs.html
-
-│   ├── student-dashboard.html
-
-│   └── student-profile.html
-
-│
-
-├── screenshots/
-
-│
-
-├── .gitignore
-
-├── requirements.txt
-
-└── README.md
-
-
-
-The venv/ directory is used locally for the Python virtual environment and should not be included in source-code repositories or final project archives.
-
-
-
-**🗄️ Database Design**
-
-
-
-CareerBridge uses a MySQL relational database named:
-
-
-
-careerbridge
-
-
-
-**The main tables are:**
-
-
-
-users
-
-&#x20;  │
-
-&#x20;  ├── student\_profiles
-
-&#x20;  │
-
-&#x20;  ├── jobs
-
-&#x20;  │      │
-
-&#x20;  │      └── applications
-
-&#x20;  │
-
-&#x20;  ├── saved\_jobs
-
-&#x20;  │
-
-&#x20;  └── notifications
-
-
-
-**Database Tables**
-
-
-
-**1. Users**
-
-
-
-Stores authentication and basic account information.
-
-
-
-**Important fields:**
-
-
-
-id
-
-name
-
-email
-
-password
-
-role
-
-created\_at
-
-
-
-**Roles supported:**
-
-
-
-student
-
-recruiter
-
-
-
-**2. Student Profile**
-
-
-
-Stores additional information about students.
-
-
-
-**Information includes:**
-
-
-
-Phone
-
-Location
-
-Education
-
-Skills
-
-Experience
-
-Bio
-
-Resume
-
-Profile timestamps
-
-
-
-**3. Jobs**
-
-
-
-Stores job and internship opportunities posted by recruiters.
-
-
-
-**Information includes:**
-
-
-
-Job title
-
-Company
-
-Description
-
-Skills
-
-Location
-
-Job type
-
-Salary
-
-Experience
-
-Deadline
-
-Status
-
-Recruiter
-
-Creation/update timestamps
-
-
-
-**Supported job types include:**
-
-
-
-Full Time
-
-Part Time
-
-Internship
-
-Remote
-
-
-
-**4. Applications**
-
-
-
-Stores student applications for jobs.
-
-
-
-Information includes:
-
-
-
-Job
-
-Student
-
-Cover letter
-
-Application status
-
-Application date
-
-Last updated date
-
-
-
-**Application statuses include:**
-
-
-
-Applied
-
-Shortlisted
-
-Interview
-
-Selected
-
-Rejected
-
-
-
-A student cannot submit multiple applications for the same job.
-
-
-
-**5. Saved Jobs**
-
-
-
-Stores jobs saved by students for later viewing.
-
-
-
-The system prevents the same student from saving the same job multiple times.
-
-
-
-**6. Notifications**
-
-
-
-Stores user notifications.
-
-
-
-**Notifications include:**
-
-
-
-Notification title
-
-Message
-
-Type
-
-Related record
-
-Read/unread status
-
-Creation timestamp
-
-
-
-**🔌 REST API Structure**
-
-
-
-The backend provides REST-style API endpoints for communication between the frontend and server.
-
-
+Werkzeug password hashing
 
 Authentication
 
-POST /api/register
+Flask sessions and role-based access checks
 
-POST /api/login
+Development tools
 
-POST /api/logout
+Git, a code editor, browser, Windows Command Prompt or PowerShell
 
-GET  /api/current-user
+The dependencies used by the application are listed in requirements.txt.
 
-Jobs
+Project Structure
 
+CareerBridge-CERSO-Task-5/
+├── backend/
+│   ├── app.py
+│   ├── applications.py
+│   ├── auth.py
+│   ├── config.py
+│   ├── database.py
+│   ├── jobs.py
+│   ├── notifications.py
+│   ├── profile.py
+│   └── saved_jobs.py
+├── frontend/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── main.js
+│   ├── applicants.html
+│   ├── create-job.html
+│   ├── edit-job.html
+│   ├── index.html
+│   ├── job-details.html
+│   ├── login.html
+│   ├── my-applications.html
+│   ├── my-jobs.html
+│   ├── notifications.html
+│   ├── recruiter-dashboard.html
+│   ├── register.html
+│   ├── saved-jobs.html
+│   ├── student-dashboard.html
+│   └── student-profile.html
+├── screenshots/
+├── .gitignore
+├── requirements.txt
+└── README.md
 
+A Python virtual environment (venv/) is created locally during setup and is intentionally not committed to Git.
 
-**The job module handles:**
+How It Works
 
+CareerBridge separates student and recruiter experiences. The Flask backend handles requests and application logic, while the frontend uses HTML, CSS, and JavaScript to display pages and interact with the API. MySQL stores account and application data.
 
+Main modules
 
-Creating jobs
+Module
 
-Viewing jobs
+Responsibility
 
-Editing jobs
+backend/app.py
 
-Managing recruiter jobs
+Flask application setup and page/API registration
 
-Viewing job details
+backend/auth.py
 
-Applications
+Registration, login, logout, and current-user authentication
 
+backend/database.py
 
+MySQL connection handling
 
-**The application module handles:**
+backend/jobs.py
 
+Job listing and job management functionality
 
+backend/applications.py
 
-Submitting applications
+Job application workflows and application status management
 
-Viewing applications
+backend/saved_jobs.py
 
-Managing application statuses
+Saving, removing, and listing saved jobs
 
-Preventing duplicate applications
+backend/profile.py
 
-Saved Jobs
+Student profile operations
 
+backend/notifications.py
 
+Notification operations
 
-**The saved jobs module handles:**
+Database
 
+The application expects a MySQL database named careerbridge.
 
+The database contains these main tables:
 
-Saving jobs
+users — account details, roles, and password hashes.
 
-Removing saved jobs
+student_profiles — additional student profile information.
 
-Viewing saved jobs
+jobs — job and internship listings.
 
-Student Profile
+applications — applications submitted by students.
 
+saved_jobs — jobs saved by students.
 
+notifications — notifications for users.
 
-**The profile module handles:**
+The tables and columns in your MySQL database must match the SQL queries used by the backend. This repository does not currently include a database export or schema.sql file, so you must create/import the matching schema from your existing project database before running the application on a fresh installation.
 
+Do not export real user records or passwords when creating a schema-only backup.
 
+Getting Started
 
-Loading profile information
+Prerequisites
 
-Updating profile information
-
-Profile completion information
-
-Notifications
-
-
-
-**The notification module provides:**
-
-
-
-GET /api/notifications
-
-PUT /api/notifications/<notification\_id>/read
-
-PUT /api/notifications/read-all
-
-
-
-Notifications are generated for important application events.
-
-
-
-**For example:**
-
-
-
-Student applies for a job
-
-&#x20;       ↓
-
-Recruiter receives notification and
-
-
-
-Recruiter changes application status
-
-&#x20;       ↓
-
-Student receives notification
-
-
-
-**🔐 Authentication and Security**
-
-
-
-CareerBridge uses authentication and role-based access control to protect user information and functionality.
-
-
-
-Password Security
-
-
-
-Passwords are not stored as plain text.
-
-
-
-Password hashing is handled using:
-
-
-
-Flask-Bcrypt
-
-bcrypt
-
-Role-Based Access
-
-
-
-**The system distinguishes between:**
-
-
-
-Student
-
-Recruiter
-
-
-
-Each role receives access to the appropriate features.
-
-
-
-**For example:**
-
-
-
-Students can apply for jobs.
-
-Recruiters can create jobs.
-
-Recruiters can view applicants.
-
-Students can track their applications.
-
-
-
-**⚙️ Installation Prerequisites**
-
-
-
-Install the following software before running the project:
-
-
+Install the following:
 
 Python 3.x
 
-MySQL 8.x
+MySQL 8.x (or a compatible MySQL server)
 
-Git (optional)
+Git (optional, for cloning)
 
-Modern web browser
+A modern web browser
 
+1. Clone the repository
 
+git clone https://github.com/arun2642008-as/CareerBridge-Job-Internship-Portal.git
+cd CareerBridge-Job-Internship-Portal
 
-**1. Clone or Download the Project**
+Alternatively, download the repository as a ZIP file from GitHub and extract it.
 
+2. Create and activate a virtual environment
 
-
-Place the project in a suitable directory.
-
-
-
-Example:
-
-
-
-C:\\Users\\RC\\Desktop\\CareerBridge-CERSO-Task-5
-
-
-
-**2. Create a Virtual Environment**
-
-
-
-Open PowerShell or Command Prompt inside the project folder.
-
-
+Windows Command Prompt:
 
 python -m venv venv
+venv\Scripts\activate
 
+Windows PowerShell:
 
+python -m venv venv
+.\venv\Scripts\Activate.ps1
 
-**3. Activate the Virtual Environment**
+If PowerShell blocks activation, use Command Prompt or follow Microsoft's guidance for your local PowerShell execution policy. Do not change system-wide security settings just to activate the environment.
 
+3. Install Python dependencies
 
+Run this command from the project root:
 
-Windows PowerShell
+python -m pip install -r requirements.txt
 
-venv\\Scripts\\Activate.ps1
+4. Prepare MySQL
 
-Windows Command Prompt
-
-venv\\Scripts\\activate
-
-
-
-**4. Install Dependencies**
-
-
-
-Run:
-
-
-
-pip install -r requirements.txt
-
-🗄️ Database Setup
-
-**1. Open MySQL**
-
-
-
-Open MySQL Command Line Client or another MySQL client.
-
-
-
-**2. Create the Database**
+Start your MySQL server and create the database:
 
 CREATE DATABASE careerbridge;
 
+Then create or import the six required tables listed in the Database section. The schema must match the backend's expected columns and relationships. A fresh database with only CREATE DATABASE will not be sufficient to run the application.
 
+5. Configure environment variables
 
-Then select it:
+The backend reads its secret key and database connection settings from environment variables. See Environment Variables for the names and examples.
 
+6. Start the backend
 
-
-USE careerbridge;
-
-**3. Create the Required Tables**
-
-
-
-Create the following tables:
-
-
-
-users
-
-student\_profiles
-
-jobs
-
-applications
-
-saved\_jobs
-
-notifications
-
-
-
-The table definitions should match the database schema used by the backend.
-
-
-
-**🔧 Database Configuration**
-
-
-
-The backend database configuration is stored in:
-
-
-
-backend/config.py
-
-
-
-Configure the MySQL connection according to your local environment.
-
-
-
-Example configuration structure:
-
-
-
-Database Host
-
-Database User
-
-Database Password
-
-Database Name
-
-
-
-Never commit real database passwords or other sensitive credentials to a public repository.
-
-
-
-**▶️ Running the Application**
-
-**1. Activate the Virtual Environment**
-
-venv\\Scripts\\Activate.ps1
-
-
-
-**2. Navigate to Backend**
+From the project root, activate the virtual environment and configure the environment variables. Then run:
 
 cd backend
-
-**3. Start Flask**
-
 python app.py
 
-
-
-The Flask server will start locally.
-
-
-
-Open the URL displayed by Flask in a web browser.
-
-
-
-**Example:**
-
-
+If startup succeeds, open the local address printed by Flask. The default development address used by this project is:
 
 http://127.0.0.1:5000
 
-🧪 Testing
+This is a local development address, not a public website.
 
+Environment Variables
 
+Configure these variables in your local terminal before starting the backend. Use your own local MySQL credentials; never put real credentials in this README or commit them to Git.
 
-CareerBridge has been tested across its major workflows.
+Variable
 
+Purpose
 
+Example
 
-Student Testing
+SECRET_KEY
 
+Secret used by Flask sessions
 
+A long, random, private value
 
-The following functionality has been verified:
+MYSQL_HOST
 
+MySQL server hostname
 
+localhost
 
-Registration
+MYSQL_USER
 
-Login
+MySQL username
 
-Dashboard
+root
 
-Job search
+MYSQL_PASSWORD
 
-Company search
+MySQL password
 
-Location filtering
+Your local MySQL password
 
-Job type filtering
+MYSQL_DATABASE
 
-Job details
+Database name
 
-Job application
+careerbridge
 
-Duplicate application prevention
+Windows Command Prompt example
 
-Saved jobs
+Generate a strong, random secret key privately, then set the variables in the same CMD window before running the app:
 
-My Applications
+set SECRET_KEY=replace_with_a_long_random_secret
+set MYSQL_HOST=localhost
+set MYSQL_USER=root
+set MYSQL_PASSWORD=replace_with_your_local_mysql_password
+set MYSQL_DATABASE=careerbridge
+cd backend
+python app.py
 
-Application status tracking
+Replace the example values on your computer. These commands set variables only for the current Command Prompt session. Do not commit a file containing real secret values.
 
-Student profile
+Windows PowerShell example
 
-Profile updates
+$env:SECRET_KEY = "replace_with_a_long_random_secret"
+$env:MYSQL_HOST = "localhost"
+$env:MYSQL_USER = "root"
+$env:MYSQL_PASSWORD = "replace_with_your_local_mysql_password"
+$env:MYSQL_DATABASE = "careerbridge"
+Set-Location backend
+python app.py
 
-Notifications
+If SECRET_KEY is not set, the current backend configuration is expected to stop startup with an error. This is intentional: use a private secret rather than a hard-coded fallback.
 
-Unread notification badge
+API Overview
 
-Recruiter Testing
+The frontend communicates with Flask through HTTP API routes. The authentication routes currently use the /api/auth/ prefix:
 
+Method
 
+Endpoint
 
-The following functionality has been verified:
+Purpose
 
+POST
 
+/api/auth/register
 
-Recruiter registration
+Register a user
 
-Recruiter login
+POST
 
-Recruiter dashboard
+/api/auth/login
 
-Job creation
+Sign in
 
-Job management
+POST
 
-Job editing
+/api/auth/logout
 
-Applicant viewing
+Sign out
 
-Application status management
+GET
 
-Recruiter notifications
+/api/auth/me
 
-Notification Testing
+Retrieve the current user's session information
 
+GET
 
+/api/health
 
-The notification system supports:
+Check backend health
 
+GET
 
+/api/test-db
 
-New application
+Test database connectivity
 
-&#x20;      ↓
+Other modules provide job, application, saved-job, profile, and notification functionality. Refer to the route definitions in backend/jobs.py, backend/applications.py, backend/saved_jobs.py, backend/profile.py, and backend/notifications.py for the exact methods, paths, and request formats.
 
-Recruiter notification
+Security Notes
 
+Passwords should be stored as hashes, not plain text.
 
+The application uses Flask sessions and role-based access checks.
 
-Application status update
+Keep SECRET_KEY private and use a strong, randomly generated value.
 
-&#x20;      ↓
+Keep database credentials out of source code and public commits.
 
-Student notification
+Do not use real student, recruiter, or application data in public screenshots or sample database exports.
 
+Before a public production deployment, review session-cookie settings, input validation, authorization checks, CSRF protection where applicable, error handling, database permissions, and HTTPS.
 
+Do not run Flask's development server or enable debug mode for a public production deployment. Use a production WSGI server and configure secrets through the hosting provider's environment settings.
 
-Unread notifications are displayed using a notification badge.
+Testing
 
+The project README and development workflow cover testing of the main student and recruiter journeys, including:
 
+Registration and login.
 
-**📱 Responsive Design**
+Student and recruiter dashboards.
 
+Job search and filtering.
 
+Job details and applications.
 
-The frontend is designed to work across different screen sizes, including:
+Duplicate application prevention.
 
+Saved jobs and application tracking.
 
+Student profile updates.
 
-Desktop
+Job creation and editing.
 
-Laptop
+Recruiter applicant review and application status updates.
 
-Tablet
+Notifications and unread notification indicators.
 
-Mobile devices
+Test the workflows again after making configuration changes or deploying to a new environment. Results may vary depending on database contents and configuration.
 
+Future Improvements
 
+Possible enhancements include:
 
-The major pages have been reviewed for layout consistency, spacing, navigation, forms, cards, and responsive behavior.
+A documented, version-controlled database schema and migration workflow.
 
+Automated tests for API routes and authentication.
 
+Production deployment with a hosted MySQL database.
 
-**🎨 User Interface**
+Improved logging and monitoring.
 
+Email notifications.
 
+AI-assisted job recommendations and skill-based matching.
 
-CareerBridge provides separate interfaces for students and recruiters.
+Resume parsing and resume feedback.
 
+Interview scheduling.
 
+Recruiter company profiles and analytics.
 
-**Student Interface** **Includes:**
+An admin dashboard.
 
+Multi-language support.
 
+These are potential future enhancements and should not be considered implemented features unless they are added to the application.
 
-Dashboard
+Project Information
 
-Job listings
+Project name: CareerBridge
 
-Search and filters
+Project type: Job and Internship Portal
 
-Job details
+Project purpose: Academic and portfolio project
 
-Applications
+Primary users: Students/job seekers and recruiters
 
-Saved jobs
+Tagline: Connect. Apply. Grow.
 
-Notifications
+Repository: CareerBridge-Job-Internship-Portal
 
-Profile
+License
 
+No open-source license has been added to this repository yet. Unless you add a license, other people generally do not receive explicit permission to reuse, distribute, or modify the code. Add a license file if you want to grant those permissions.
 
+Conclusion
 
-**Recruiter Interface Includes:**
+CareerBridge brings job discovery, applications, recruiter job management, profile management, and notifications into one application. It combines a browser-based frontend, a Flask backend, and a MySQL database to provide a foundation for a job and internship portal.
 
-
-
-Dashboard
-
-Job management
-
-Job creation
-
-Job editing
-
-Applicant management
-
-Application status updates
-
-Notifications
-
-
-
-**📸 Screenshots**
-
-
-
-Project screenshots are stored in:
-
-
-
-screenshots/
-
-
-
-Recommended screenshots include:
-
-
-
-Home / Landing Page
-
-Registration
-
-Login
-
-Student Dashboard
-
-Job Details
-
-Job Application
-
-My Applications
-
-Saved Jobs
-
-Student Profile
-
-Notifications
-
-Recruiter Dashboard
-
-Create Job
-
-My Jobs
-
-Applicants
-
-
-
-**📊 Major Modules**
-
-
-
-**CareerBridge can be divided into the following modules:**
-
-
-
-1\. Authentication Module
-
-2\. Student Module
-
-3\. Recruiter Module
-
-4\. Job Management Module
-
-5\. Application Management Module
-
-6\. Saved Jobs Module
-
-7\. Student Profile Module
-
-8\. Notification Module
-
-9\. Database Module
-
-10\. REST API Module
-
-
-
-**🌟 Advantages**
-
-
-
-**CareerBridge provides several benefits:**
-
-
-
-Centralized job and internship discovery
-
-Simple application process
-
-Role-based user experience
-
-Recruiter job management
-
-Application tracking
-
-Saved job functionality
-
-Real-time-style notification workflow
-
-Structured relational database
-
-Secure password handling
-
-Responsive web interface
-
-
-
-**🚀 Future Enhancements**
-
-
-
-**Possible future improvements include:**
-
-
-
-Advanced job recommendation using AI
-
-Resume parsing
-
-AI-powered resume analysis
-
-Skill-based job matching
-
-Email notifications
-
-WhatsApp notifications
-
-Recruiter company profiles
-
-Advanced analytics dashboard
-
-Interview scheduling
-
-Online interview integration
-
-Application statistics
-
-Admin dashboard
-
-Job recommendation based on student skills
-
-Resume builder
-
-Multi-language support
-
-
-
-**🧑‍💻 Project Information**
-
-
-
-Project Name: CareerBridge
-
-
-
-Project Type: Job \& Internship Portal
-
-
-
-Purpose: CERSO Project
-
-
-
-Tagline:
-
-
-
-Connect. Apply. Grow.
-
-
-
-Primary Users:
-
-
-
-Students / Job Seekers
-
-Recruiters
-
-
-
-**Frontend:**
-
-
-
-HTML
-
-CSS
-
-JavaScript
-
-
-
-**Backend:**
-
-
-
-Python
-
-Flask
-
-
-
-**Database:**
-
-
-
-MySQL
-
-
-
-**📂 Important Files**
-
-
-
-File / Folder	Purpose
-
-backend/app.py	Main Flask application
-
-backend/auth.py	Authentication functionality
-
-backend/database.py	Database connection
-
-backend/jobs.py	Job management
-
-backend/applications.py	Application management
-
-backend/profile.py	Student profile management
-
-backend/saved\_jobs.py	Saved jobs functionality
-
-backend/notifications.py	Notification functionality
-
-frontend/student-dashboard.html	Student dashboard
-
-frontend/recruiter-dashboard.html	Recruiter dashboard
-
-frontend/job-details.html	Job details
-
-frontend/create-job.html	Create job
-
-frontend/my-applications.html	Student applications
-
-frontend/my-jobs.html	Recruiter jobs
-
-frontend/applicants.html	Applicant management
-
-frontend/student-profile.html	Student profile
-
-frontend/notifications.html	Notifications
-
-requirements.txt	Python dependencies
-
-.gitignore	Files excluded from version control
-
-README.md	Project documentation
-
-
-
-**🔄 Complete System Flow**
-
-
-
-&#x20;                    ┌─────────────────────┐
-
-&#x20;                    │     CareerBridge    │
-
-&#x20;                    └──────────┬──────────┘
-
-&#x20;                               │
-
-&#x20;                 ┌─────────────┴─────────────┐
-
-&#x20;                 │                           │
-
-&#x20;          ┌──────▼──────┐             ┌──────▼──────┐
-
-&#x20;          │   Student   │             │  Recruiter  │
-
-&#x20;          └──────┬──────┘             └──────┬──────┘
-
-&#x20;                 │                           │
-
-&#x20;            Register/Login              Register/Login
-
-&#x20;                 │                           │
-
-&#x20;                 ▼                           ▼
-
-&#x20;         Student Dashboard          Recruiter Dashboard
-
-&#x20;                 │                           │
-
-&#x20;         Search / Filter Jobs          Create Jobs
-
-&#x20;                 │                           │
-
-&#x20;            View Details              Manage Jobs
-
-&#x20;                 │                           │
-
-&#x20;                Apply                 View Applicants
-
-&#x20;                 │                           │
-
-&#x20;                 └─────────────┬─────────────┘
-
-&#x20;                               │
-
-&#x20;                        Application System
-
-&#x20;                               │
-
-&#x20;                    ┌──────────┴──────────┐
-
-&#x20;                    │                     │
-
-&#x20;                Student              Recruiter
-
-&#x20;                    │                     │
-
-&#x20;             Track Status          Update Status
-
-&#x20;                    │                     │
-
-&#x20;                    └──────────┬──────────┘
-
-&#x20;                               │
-
-&#x20;                        🔔 Notifications
-
-
-
-**📄 License**
-
-
-
-This project was developed as an academic project for educational and demonstration purposes.
-
-
-
-**👨‍💻 Conclusion**
-
-
-
-CareerBridge provides a structured platform for connecting students and recruiters through a centralized job and internship management system.
-
-
-
-By combining a responsive frontend, Flask backend, MySQL database, REST APIs, authentication, application tracking, saved jobs, and notifications, the system provides a complete foundation for a modern job and internship portal.
-
+Contributions and suggestions are welcome through GitHub issues.
